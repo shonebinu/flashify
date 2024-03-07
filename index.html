@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html lang="en" data-theme="light">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark" />
+  <link rel="stylesheet" href="styles/pico-main/css/pico.min.css">
+  <link rel="stylesheet" href="styles/styles.css">
+  <title>Flash Minds</title>
+
+  <script src="scripts/regAndLogin.js" defer></script>
+
+</head>
+
+<body>
+  <header class="header">
+    <h1>Flash Minds</h1>
+    <p>Boost your learning with interactive flashcards!</p>
+  </header>
+  <main class="main">
+    <section class="register">
+      <h2>Register</h2>
+      <form id="registration-form" action="POST">
+        <label for="username">Name:</label>
+        <input type="text" name="username" id="username" required>
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" required>
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" required>
+        <button type="submit">Register</button>
+      </form>
+    </section>
+    <p>Already registered? <a class="login" href="">Login here</a></p>
+  </main>
+  <footer class="footer">
+    <p>&copy; 2024 Flashcard Minds</p>
+  </footer>
+</body>
+
+</html>
