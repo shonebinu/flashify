@@ -1,6 +1,6 @@
 <?php
 
-require('config.php'); 
+require('../SECRETS.php'); 
 
 function db_connect() {
   global $conn; // Use global variable to access in function
