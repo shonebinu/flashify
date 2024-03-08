@@ -1,6 +1,39 @@
-body {
+.index {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.home {
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+}
+
+.home>section {
+  flex: 1;
+  padding: 2rem;
+}
+
+.home>main {
+  flex: 7;
+}
+
+.home>section,
+.home>main {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0;
+}
+
+#gravatar-container>img {
+  border-radius: 40%;
+}
+
+.user-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .5rem;
 }
