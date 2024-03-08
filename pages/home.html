@@ -10,6 +10,21 @@
   <link rel="stylesheet" href="../styles/styles.css">
   <title>Flash Minds</title>
 
+  <script>
+    function cookieExists(cookieName) {
+      return document.cookie.split(';').some(cookie => {
+        return cookie.trim().startsWith(cookieName + '=');
+      });
+    }
+
+    let userCookieExists = cookieExists('user_id');
+
+    if (!userCookieExists) {
+      window.location.href = "../index.html";
+    }
+
+  </script>
+
   <script src="../scripts/getGravatar.js" defer></script>
 </head>
 
