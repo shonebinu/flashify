@@ -30,23 +30,40 @@
 
 <body class="home">
   <section class="container">
-    <div class="user-profile">
-      <div id="gravatar-container"></div>
-      <h5 id="user-name"></h5>
+    <div>
+      <div class="user-profile">
+        <div id="gravatar-container"></div>
+        <h5 id="user-name"></h5>
+      </div>
+      <aside class="aside-nav">
+        <nav>
+          <ul>
+            <button class="secondary sec">Review</button><br>
+            <button data-open-modal class="secondary sec">Add Card</button>
+          </ul>
+        </nav>
+      </aside>
     </div>
-    <aside class="aside-nav">
-      <nav>
-        <ul>
-          <li><a href="#">Review</a></li>
-          <li><a href="#">Manage</a></li>
-          <li><a href="#"></a></li>
-        </ul>
-      </nav>
-    </aside>
     <button id="log-out">Log out</button>
   </section>
 
+
+  <dialog data-modal>
+    <article>
+      <h2>Add a Card</h2>
+      <input type="text" name="question" placeholder="Question?" aria-label="Text" />
+      <input type="text" name="answer" placeholder="Answer" aria-label="Text" />
+      <footer>
+        <button data-close-modal class="secondary">Close</button>
+        <button data-confirm-modal>Confirm</button>
+      </footer>
+    </article>
+  </dialog>
+
   <main class="container">
+    <h2>Current Cards</h2>
+    <div id="cards-container" class="container">
+    </div>
   </main>
 </body>
 
