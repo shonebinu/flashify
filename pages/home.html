@@ -29,24 +29,31 @@
 </head>
 
 <body class="home">
-  <section class="container">
-    <div>
+  <article id="menu">
+    <header>
       <div class="user-profile">
         <div id="gravatar-container"></div>
         <h5 id="user-name"></h5>
       </div>
+    </header>
+    <aside class="aside-nav">
+      <nav>
+        <ul>
+          <li><a class="secondary point">Review</a></li>
+          <li><a data-open-modal class="secondary point">Add Card</a></li>
+        </ul>
+      </nav>
+    </aside>
+    <footer>
       <aside class="aside-nav">
         <nav>
           <ul>
-            <button class="secondary sec">Review</button><br>
-            <button data-open-modal class="secondary sec">Add Card</button>
+            <li><a id="log-out" class="secondary point">Log out</a></li>
           </ul>
         </nav>
       </aside>
-    </div>
-    <button id="log-out">Log out</button>
-  </section>
-
+    </footer>
+  </article>
 
   <dialog data-modal>
     <article>
