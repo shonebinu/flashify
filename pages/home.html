@@ -11,10 +11,30 @@
   <title>Flash Minds</title>
 
   <script>
+      function getCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for(var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1, c.length);
+            }
+            if (c.indexOf(nameEQ) == 0) {
+                return c.substring(nameEQ.length, c.length);
+            }
+        }
+        return null;
+    }
+
+
     function cookieExists(cookieName) {
       return document.cookie.split(';').some(cookie => {
         return cookie.trim().startsWith(cookieName + '=');
       });
+    }
+
+    if (getCookie("colorScheme")) {
+      document.querySelector("html").setAttribute("data-theme", getCookie("colorScheme"));
     }
 
     let userCookieExists = cookieExists('user_id');
@@ -50,8 +70,12 @@
           <ul>
             <li><a data-change-avatar class="secondary point">Change Avatar</a></li>
             <li><a id="log-out" class="secondary point">Log out</a></li>
+            <li></li>
+            <li>
+              <button class="contrast" data-theme-toggle>Toggle Theme</button>
+            </li>
           </ul>
-        </nav>
+        </nav>     
       </aside>
     </footer>
   </article>
