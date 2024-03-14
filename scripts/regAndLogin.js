@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 
 const mainContent = document.querySelector(".main");
 const loginLink = document.querySelector(".login");
@@ -20,7 +20,7 @@ loginLink.addEventListener("click", function(event) {
     <p class="register-link">Not registered yet? <a href="" id="register-link">Register here</a></p>
     `;
 
-    document.getElementById("login-form").addEventListener("submit", function (event) {
+  document.getElementById("login-form").addEventListener("submit", function(event) {
     event.preventDefault(); // Prevent the default form submission
 
     let loginFormData = new FormData(this);
@@ -31,11 +31,9 @@ loginLink.addEventListener("click", function(event) {
     })
       .then(response => response.json())
       .then(data => {
-
         if (data.message === "Login successful") {
           window.location.href = "pages/home.html";
-        }
-        else {
+        } else {
           window.alert(data.message);
         }
       })
@@ -43,13 +41,13 @@ loginLink.addEventListener("click", function(event) {
   });
 
   const registerLink = document.getElementById("register-link");
-  registerLink.addEventListener("click", function (event) {
+  registerLink.addEventListener("click", function(event) {
     event.preventDefault();
     location.reload();
-  })
+  });
 });
 
-document.getElementById("registration-form").addEventListener("submit", function (event) {
+document.getElementById("registration-form").addEventListener("submit", function(event) {
   event.preventDefault(); // Prevent the default form submission
 
   let formData = new FormData(this);
@@ -67,12 +65,11 @@ document.getElementById("registration-form").addEventListener("submit", function
 });
 
 function setCookie(name, value, days) {
-    var expires = "";
-    if (days) {
-        var date = new Date();
-        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-        expires = "; expires=" + date.toUTCString();
-    }
-    document.cookie = name + "=" + value + expires + "; path=/";
+  var expires = "";
+  if (days) {
+    var date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    expires = "; expires=" + date.toUTCString();
+  }
+  document.cookie = name + "=" + value + expires + "; path=/";
 }
-
