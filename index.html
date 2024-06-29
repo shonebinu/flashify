@@ -1,101 +1,50 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="color-scheme" content="light dark" />
-  <link rel="stylesheet" href="styles/pico-main/css/pico.min.css">
-  <link rel="stylesheet" href="styles/styles.css">
-  <title>Flash Minds</title>
-
-  <script>
-
-        // Function to set a cookie
-    function setCookie(name, value, days) {
-        var expires = "";
-        if (days) {
-            var date = new Date();
-            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-            expires = "; expires=" + date.toUTCString();
-        }
-        document.cookie = name + "=" + (value || "") + expires + "; path=/";
-    }
-
-    // Function to get the value of a cookie
-    function getCookie(name) {
-        var nameEQ = name + "=";
-        var ca = document.cookie.split(';');
-        for(var i = 0; i < ca.length; i++) {
-            var c = ca[i];
-            while (c.charAt(0) == ' ') {
-                c = c.substring(1, c.length);
-            }
-            if (c.indexOf(nameEQ) == 0) {
-                return c.substring(nameEQ.length, c.length);
-            }
-        }
-        return null;
-    }
-
-    // Function to detect preferred color scheme and set cookie
-    function detectColorSchemeAndSetCookie() {
-        var prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-        if (prefersDarkMode) {
-            setCookie('colorScheme', 'dark', 365); // Set cookie for dark mode preference
-        } else {
-            setCookie('colorScheme', 'light', 365); // Set cookie for light mode preference
-        }
-    }
-
-    // Check if color scheme preference cookie is already set, if not, detect and set it
-    window.onload = function() {
-        if (!getCookie('colorScheme')) {
-            detectColorSchemeAndSetCookie();
-        } 
-        else {
-          
-            document.querySelector("html").setAttribute("data-theme", getCookie('colorScheme'));
-        }
-    };
-    
-
-    if (getCookie("user_id")) {
-      window.location.href = "pages/home.html";
-    }
-
-
-
-  </script>
-
-  <script src="scripts/regAndLogin.js" defer></script>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flashify</title>
+  <link rel="stylesheet" href="./styles/main.css">
 </head>
 
-<body class="index">
-  <header class="header">
-    <h1>Flash Minds</h1>
-    <p>Boost your learning with interactive flashcards!</p>
+<body>
+  <header>
+    <div>
+      <h3>Flashify</h3>
+      <img src="assets/flash-card.png" alt="Flashify Logo" class="logo">
+    </div>
+    <nav>
+      <a href="">Home</a>
+      <a href="">About</a>
+      <a href="">Sign In</a>
+    </nav>
   </header>
-  <main class="main">
-    <section class="register">
-      <h2>Register</h2>
-      <form id="registration-form" action="POST">
-        <label for="username">Name:</label>
-        <input type="text" name="username" id="username" required>
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="password" required>
-        <label for="email">Email:</label>
-        <input type="email" name="email" id="email" required>
-        <button type="submit">Register</button>
-      </form>
+
+
+  <main>
+    <section class="hero" id="particles-js">
+      <div>
+        <h1>Learn the Easy <br>Way!</h1>
+        <p>Flashify got you covered, Let's hop in!</p>
+        <button>Get Started</button>
+        <div class="bubbles">
+          <div class="bubble"></div>
+          <div class="bubble"></div>
+          <div class="bubble"></div>
+          <div class="bubble"></div>
+          <div class="bubble"></div>
+          <div class="bubble"></div>
+          <div class="bubble"></div>
+          <div class="bubble"></div>
+          <div class="bubble"></div>
+          <div class="bubble"></div>
+        </div>
+      </div>
+      <img src="assets/talk.png" alt="Teaching Image" class="hero-img">
     </section>
-    <p>Already registered? <a class="login" href="">Login here</a></p>
+    <section class="about"></section>
   </main>
-  <footer class="footer">
-    <p>&copy; 2024 Flashcard Minds</p>
-  </footer>
 </body>
 
 </html>
