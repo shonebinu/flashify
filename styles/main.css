@@ -20,7 +20,7 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--fg);
-  font-family: Rubik;
+  font-family: 'Rubik', sans-serif;
   display: flex;
   flex-direction: column;
 }
@@ -31,10 +31,10 @@ header {
   justify-content: space-around;
 
   div:has(.logo) {
-    font-family: Podkova;
+    font-family: 'Podkova', serif;
     display: flex;
     align-items: center;
-    gap: .5rem;
+    gap: 0.5rem;
     font-size: 1.5rem;
 
     .logo {
@@ -66,12 +66,12 @@ header {
       border-radius: 5px;
       border: 0;
       background: var(--bg);
-    }
 
-    .sign-in:hover {
-      text-decoration: none;
-      background: var(--fg2);
-      color: var(--bg);
+      &:hover {
+        text-decoration: none;
+        background: var(--fg2);
+        color: var(--bg);
+      }
     }
   }
 }
@@ -83,6 +83,8 @@ main {
     justify-content: space-evenly;
     padding: 3rem 0;
     width: 100%;
+    position: relative;
+    overflow: hidden;
 
     h1 {
       font-weight: 500;
@@ -100,135 +102,128 @@ main {
       background: var(--fg2);
       color: var(--bg2);
       border-radius: 4px;
-      padding: .7rem 1.5rem;
+      padding: 0.7rem 1.5rem;
       font-size: 1.05rem;
       cursor: pointer;
+
+      &:hover {
+        background: var(--bg2);
+        color: var(--fg);
+        outline: 2px solid var(--fg);
+      }
     }
 
-    button:hover {
-      background: var(--bg2);
-      color: var(--fg);
-      outline: 2px solid var(--fg);
+    .hero-img {
+      width: 18rem;
     }
-  }
 
-  img {
-    width: 18rem;
+    .bubbles {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      top: 0;
+      left: 0;
+
+      .bubble {
+        position: absolute;
+        bottom: -100px;
+        background: var(--fg2);
+        border-radius: 50%;
+        opacity: 0.5;
+        animation: rise 10s infinite ease-in;
+
+        &:nth-child(1) {
+          width: 40px;
+          height: 40px;
+          left: 10%;
+          animation-duration: 8s;
+        }
+
+        &:nth-child(2) {
+          width: 20px;
+          height: 20px;
+          left: 20%;
+          animation-duration: 5s;
+          animation-delay: 1s;
+        }
+
+        &:nth-child(3) {
+          width: 50px;
+          height: 50px;
+          left: 35%;
+          animation-duration: 7s;
+          animation-delay: 2s;
+        }
+
+        &:nth-child(4) {
+          width: 80px;
+          height: 80px;
+          left: 50%;
+          animation-duration: 11s;
+          animation-delay: 0s;
+        }
+
+        &:nth-child(5) {
+          width: 35px;
+          height: 35px;
+          left: 55%;
+          animation-duration: 6s;
+          animation-delay: 1s;
+        }
+
+        &:nth-child(6) {
+          width: 45px;
+          height: 45px;
+          left: 65%;
+          animation-duration: 8s;
+          animation-delay: 3s;
+        }
+
+        &:nth-child(7) {
+          width: 90px;
+          height: 90px;
+          left: 70%;
+          animation-duration: 12s;
+          animation-delay: 2s;
+        }
+
+        &:nth-child(8) {
+          width: 25px;
+          height: 25px;
+          left: 80%;
+          animation-duration: 6s;
+          animation-delay: 2s;
+        }
+
+        &:nth-child(9) {
+          width: 15px;
+          height: 15px;
+          left: 70%;
+          animation-duration: 5s;
+          animation-delay: 1s;
+        }
+
+        &:nth-child(10) {
+          width: 90px;
+          height: 90px;
+          left: 25%;
+          animation-duration: 10s;
+          animation-delay: 4s;
+        }
+      }
+    }
   }
 }
 
-
-
-.hero {
-  position: relative;
-  overflow: hidden;
-
-  .bubbles {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: -100;
-    top: 0;
-    left: 0;
-  }
-
-  .bubble {
-    position: absolute;
+@keyframes rise {
+  0% {
     bottom: -100px;
-    background: var(--bg2);
-    border-radius: 50%;
-    opacity: 0.5;
-    animation: rise 10s infinite ease-in;
+    transform: translateX(0);
   }
 
-  .bubble:nth-child(1) {
-    width: 40px;
-    height: 40px;
-    left: 10%;
-    animation-duration: 8s;
-  }
-
-  .bubble:nth-child(2) {
-    width: 20px;
-    height: 20px;
-    left: 20%;
-    animation-duration: 5s;
-    animation-delay: 1s;
-  }
-
-  .bubble:nth-child(3) {
-    width: 50px;
-    height: 50px;
-    left: 35%;
-    animation-duration: 7s;
-    animation-delay: 2s;
-  }
-
-  .bubble:nth-child(4) {
-    width: 80px;
-    height: 80px;
-    left: 50%;
-    animation-duration: 11s;
-    animation-delay: 0s;
-  }
-
-  .bubble:nth-child(5) {
-    width: 35px;
-    height: 35px;
-    left: 55%;
-    animation-duration: 6s;
-    animation-delay: 1s;
-  }
-
-  .bubble:nth-child(6) {
-    width: 45px;
-    height: 45px;
-    left: 65%;
-    animation-duration: 8s;
-    animation-delay: 3s;
-  }
-
-  .bubble:nth-child(7) {
-    width: 90px;
-    height: 90px;
-    left: 70%;
-    animation-duration: 12s;
-    animation-delay: 2s;
-  }
-
-  .bubble:nth-child(8) {
-    width: 25px;
-    height: 25px;
-    left: 80%;
-    animation-duration: 6s;
-    animation-delay: 2s;
-  }
-
-  .bubble:nth-child(9) {
-    width: 15px;
-    height: 15px;
-    left: 70%;
-    animation-duration: 5s;
-    animation-delay: 1s;
-  }
-
-  .bubble:nth-child(10) {
-    width: 90px;
-    height: 90px;
-    left: 25%;
-    animation-duration: 10s;
-    animation-delay: 4s;
-  }
-
-  @keyframes rise {
-    0% {
-      bottom: -100px;
-      transform: translateX(0);
-    }
-
-    100% {
-      bottom: 100%;
-      transform: translateX(-200px);
-    }
+  100% {
+    bottom: 100%;
+    transform: translateX(-200px);
   }
 }
