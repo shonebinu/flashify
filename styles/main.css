@@ -1,9 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Podkova:wght@400..800&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 
 :root {
-  --bg: #fafafa;
-  --bg2: #e5e5e5;
+  --bg: #e5e5e5;
+  --bg2: #fafafa;
   --fg: #0a0a0a;
+  --fg2: #444444;
 }
 
 * {
@@ -25,12 +26,12 @@ body {
 }
 
 header {
-  font-family: Podkova;
   background: var(--bg2);
   display: flex;
   justify-content: space-around;
 
   div:has(.logo) {
+    font-family: Podkova;
     display: flex;
     align-items: center;
     gap: .5rem;
@@ -45,19 +46,32 @@ header {
   nav {
     display: flex;
     align-items: center;
-    gap: 2rem;
+    gap: 3rem;
 
     a,
     a:link,
     a:visited {
       color: var(--fg);
       text-decoration: none;
-      font-size: 1.15rem;
+      font-size: 1.05rem;
     }
 
     a:hover {
       text-decoration: underline;
       text-underline-offset: 5px;
+    }
+
+    .sign-in {
+      padding: 8px 25px;
+      border-radius: 5px;
+      border: 0;
+      background: var(--bg);
+    }
+
+    .sign-in:hover {
+      text-decoration: none;
+      background: var(--fg2);
+      color: var(--bg);
     }
   }
 }
@@ -83,11 +97,11 @@ main {
     button {
       margin-top: 1rem;
       border: none;
-      background: #444444;
+      background: var(--fg2);
+      color: var(--bg2);
       border-radius: 4px;
       padding: .7rem 1.5rem;
-      font-size: 1rem;
-      color: white;
+      font-size: 1.05rem;
       cursor: pointer;
     }
 
