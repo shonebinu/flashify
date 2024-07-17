@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Podkova:wght@400..800&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+:root {
+  --bg: #e5e5e5;
+  --bg2: #fafafa;
+  --fg: #0a0a0a;
+  --fg2: #444444;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+input,
+button {
+  font-family: inherit;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'Rubik', sans-serif;
+}

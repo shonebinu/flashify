@@ -1,26 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Podkova:wght@400..800&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
-
-:root {
-  --bg: #e5e5e5;
-  --bg2: #fafafa;
-  --fg: #0a0a0a;
-  --fg2: #444444;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-input,
-button {
-  font-family: inherit;
-}
+@import "base.css";
 
 body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--fg);
-  font-family: 'Rubik', sans-serif;
   display: flex;
   flex-direction: column;
 }
@@ -29,8 +9,9 @@ header {
   background: var(--bg2);
   display: flex;
   justify-content: space-around;
+  align-items: center;
 
-  div:has(.logo) {
+  div:has(>.logo) {
     font-family: 'Podkova', serif;
     display: flex;
     align-items: center;
@@ -85,6 +66,8 @@ main {
     width: 100%;
     position: relative;
     overflow: hidden;
+    flex-wrap: wrap-reverse;
+    padding-bottom: 5rem;
 
     h1 {
       font-weight: 500;
@@ -238,10 +221,10 @@ main .features {
 
   .cards {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     justify-items: center;
     gap: 2rem;
-    max-width: 80%;
+    width: 70%;
 
     .card {
       display: flex;
@@ -256,15 +239,16 @@ main .features {
       transition: transform 0.2s, box-shadow 0.2s;
 
       &:hover {
-        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
-        transform: scale(1.05);
+        box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+        transform: scale(1.03);
       }
 
       img {
-        width: 100px;
+        width: max(75px, 5vw);
       }
 
       h3 {
+        font-weight: normal;
         margin-bottom: 0;
       }
 
@@ -286,7 +270,7 @@ main .faq {
   justify-content: center;
 
   .accordion {
-    width: 80%;
+    width: 70%;
   }
 
   .accordion-item {
@@ -326,11 +310,14 @@ main .faq {
 }
 
 footer {
+  margin: 0 auto;
   padding: 3vh;
   width: 80%;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  justify-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 1rem;
   font-size: 0.9rem;
 
   div:has(>img.logo) {
@@ -382,5 +369,21 @@ footer {
 
   .light {
     font-weight: 300;
+  }
+}
+
+@media (max-width: 768px) {
+  nav {
+    a:not(:last-child) {
+      display: none;
+    }
+  }
+
+  main .faq .accordion {
+    width: unset;
+  }
+
+  main .features .cards {
+    width: unset;
   }
 }
