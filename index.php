@@ -43,16 +43,16 @@
       <a href="#">Home</a>
       <a href="#features">Features</a>
       <a href="#faq">FAQs</a>
-      <a href="" class="sign-in">Sign In</a>
+      <a href="login.php" class="sign-in">Sign In</a>
     </nav>
   </header>
 
   <main>
-    <section class="hero" id="particles-js">
+    <section class="hero">
       <div>
         <h1>Learn the Easy <br>Way!</h1>
         <p>Flashify got you covered, Let's hop in!</p>
-        <button>Get Started</button>
+        <button onclick="location.href='register.php'">Get Started</button>
         <div class="bubbles">
           <div class="bubble"></div>
           <div class="bubble"></div>
@@ -186,11 +186,11 @@
 
     <div class="nav">
       <p>Links</p>
-      <p class="light"><a>Home</a></p>
-      <p class="light"><a>Features</a></p>
-      <p class="light"><a>FAQs</a></p>
-      <p class="light"><a>Sign In</a></p>
-      <p class="light"><a>Register</a></p>
+      <p class="light"><a href="#">Home</a></p>
+      <p class="light"><a href="#features">Features</a></p>
+      <p class="light"><a href="#faq">FAQs</a></p>
+      <p class="light"><a href="login.php">Sign In</a></p>
+      <p class="light"><a href="register.php">Register</a></p>
     </div>
   </footer>
 </body>
