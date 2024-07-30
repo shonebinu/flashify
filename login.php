@@ -49,7 +49,7 @@ if (isset($_POST['login'])) {
 <main>
   <img src="assets/flash-card.png">
   <h2>Welcome back!</h2>
-  <p>Don't have an account? <a href="login.php">Sign Up</a></p>
+  <p>Don't have an account? <a href="register.php">Sign Up</a></p>
   <span class="error">
     <?php
     echo $user_exists_warning;
