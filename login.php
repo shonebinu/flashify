@@ -4,8 +4,8 @@ require_once 'includes/database.php';
 session_start();
 
 if (isset($_SESSION['user_name'])) {
-    header("Location: /app");
-    exit;
+  header("Location: /app");
+  exit;
 }
 
 $db = new Database();
@@ -13,24 +13,24 @@ $db = new Database();
 $user_exists_warning = "";
 
 if (isset($_POST['login'])) {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+  $email = $_POST['email'];
+  $password = $_POST['password'];
 
-    $user = $db->fetch("SELECT name, password FROM users WHERE email = :email", ['email' => $email]);
+  $user = $db->fetch("SELECT name, password FROM users WHERE email = :email", ['email' => $email]);
 
-    if ($user) {
-        if (password_verify($password, $user['password'])) {
-            $_SESSION['user_name'] = $user['name'];
-            $_SESSION['user_email'] = $email;
+  if ($user) {
+    if (password_verify($password, $user['password'])) {
+      $_SESSION['user_name'] = $user['name'];
+      $_SESSION['user_email'] = $email;
 
-            header("Location: /app");
-            exit;
-        } else {
-            $user_exists_warning = "Incorrect email or password.";
-        }
+      header("Location: /app");
+      exit;
     } else {
-        $user_exists_warning = "User does not exist.";
+      $user_exists_warning = "Incorrect email or password.";
     }
+  } else {
+    $user_exists_warning = "User does not exist.";
+  }
 }
 ?>
 
@@ -46,25 +46,25 @@ if (isset($_POST['login'])) {
 </head>
 
 <body>
-<main>
-  <img src="assets/flash-card.png">
-  <h2>Welcome back!</h2>
-  <p>Don't have an account? <a href="register.php">Sign Up</a></p>
-  <span class="error">
-    <?php
-    echo $user_exists_warning;
-?>
-  </span>
-  <form method="POST">
-    <label for="email">Email Address:</label>
-    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+  <main>
+    <img src="assets/flash-card.png">
+    <h2>Welcome back!</h2>
+    <p>Don't have an account? <a href="register.php">Sign Up</a></p>
+    <span class="error">
+      <?php
+      echo $user_exists_warning;
+      ?>
+    </span>
+    <form method="POST">
+      <label for="email">Email Address:</label>
+      <input type="email" id="email" name="email" placeholder="Enter your email" required>
 
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" placeholder="Enter your password" required>
 
-    <button type="submit" name="login">Sign In</button>
-  </form>
-</main>
+      <button type="submit" name="login">Sign In</button>
+    </form>
+  </main>
   <div class="bubbles">
     <div class="bubble"></div>
     <div class="bubble"></div>
@@ -77,6 +77,5 @@ if (isset($_POST['login'])) {
     <div class="bubble"></div>
     <div class="bubble"></div>
   </div>
+
 </html>
-
-

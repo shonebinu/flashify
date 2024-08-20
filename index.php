@@ -8,7 +8,7 @@
   <link rel="icon" type="image/x-icon" href="assets/flash-card.png">
   <link rel="stylesheet" href="./styles/landing-page.css">
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function() {
 
       // Accordion
       const accordionItems = document.querySelectorAll(".accordion-item");
@@ -16,7 +16,7 @@
       accordionItems.forEach(item => {
         const accordionBtn = item.querySelector(".accordion-btn");
 
-        accordionBtn.addEventListener("click", function () {
+        accordionBtn.addEventListener("click", function() {
           item.classList.toggle("active");
 
           const accordionContent = item.querySelector(".accordion-content");
