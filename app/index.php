@@ -8,6 +8,27 @@ if (!isset($_SESSION['user_name'])) {
     header("Location: /login.php");
     exit;
 }
+?>
 
+<!DOCTYPE html>
+<html lang="en">
 
-echo "Welcome";
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashify Dashboard</title>
+    <link rel="icon" type="image/x-icon" href="assets/flash-card.png">
+    <link rel="stylesheet" href="/styles/app-main.css">
+</head>
+
+<body>
+    <aside>
+        <?php require_once 'components/nav.php' ?>
+    </aside>
+
+    <main>
+
+    </main>
+</body>
+
+</html>

@@ -40,7 +40,7 @@ if (isset($_POST['register'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Flashify | Sign Up</title>
   <link rel="icon" type="image/x-icon" href="assets/flash-card.png">
-  <link rel="stylesheet" href="./styles/register_login.css">
+  <link rel="stylesheet" href="/styles/register-login.css">
 </head>
 
 <body>

@@ -1,0 +1,11 @@
+@import "base.css";
+
+body {
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  min-height: 100vh;
+
+  aside:has(.app-nav) {
+    background: var(--bg2);
+  }
+}
