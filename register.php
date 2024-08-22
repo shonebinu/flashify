@@ -1,4 +1,5 @@
 <?php
+require_once 'includes/auth/register.php';
 require_once 'includes/database.php';
 
 session_start();
@@ -9,7 +10,6 @@ if (isset($_SESSION['user_name'])) {
 }
 
 $db = new Database();
-
 $user_exists_warning = "";
 
 if (isset($_POST['register'])) {
@@ -20,23 +20,13 @@ if (isset($_POST['register'])) {
   if (empty($name) || empty($email) || empty($password)) {
     $user_exists_warning = "All fields are required.";
   } else {
-    $existingUser = $db->fetch("SELECT * FROM users WHERE email = :email", ['email' => $email]);
+    $result = registerUser($name, $email, $password, $db);
 
-    if ($existingUser) {
-      $user_exists_warning = "This Email exists in our database.";
-    } else {
-      $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-      $db->execute("INSERT INTO users(name, email, password) VALUES(:name, :email, :password)", [
-        "name" => $name,
-        "email" => $email,
-        "password" => $hashedPassword
-      ]);
-
-      $_SESSION['user_name'] = $name;
-      $_SESSION['user_email'] = $email;
-
+    if ($result === true) {
       header("Location: /app");
       exit;
+    } else {
+      $user_exists_warning = $result;
     }
   }
 }

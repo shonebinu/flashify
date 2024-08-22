@@ -1,4 +1,5 @@
 <?php
+require_once 'includes/auth/login.php';
 require_once 'includes/database.php';
 
 session_start();
@@ -9,27 +10,17 @@ if (isset($_SESSION['user_name'])) {
 }
 
 $db = new Database();
-
 $user_exists_warning = "";
 
 if (isset($_POST['login'])) {
   $email = $_POST['email'];
   $password = $_POST['password'];
 
-  $user = $db->fetch("SELECT name, password FROM users WHERE email = :email", ['email' => $email]);
-
-  if ($user) {
-    if (password_verify($password, $user['password'])) {
-      $_SESSION['user_name'] = $user['name'];
-      $_SESSION['user_email'] = $email;
-
-      header("Location: /app");
-      exit;
-    } else {
-      $user_exists_warning = "Incorrect email or password.";
-    }
+  if (loginUser($email, $password, $db)) {
+    header("Location: /app");
+    exit;
   } else {
-    $user_exists_warning = "User does not exist.";
+    $user_exists_warning = "Incorrect email or password.";
   }
 }
 ?>
