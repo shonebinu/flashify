@@ -1,11 +1,67 @@
 @import "base.css";
 
 body {
-  display: grid;
-  grid-template-columns: 1fr 5fr;
+  display: flex;
   min-height: 100vh;
 
   aside:has(.app-nav) {
     background: var(--bg2);
+    padding: 1rem 1.5rem;
+
+    h1 {
+      font-size: 2rem;
+      font-family: "Podkova";
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 0;
+
+      img {
+        aspect-ratio: 1;
+        width: 3rem;
+      }
+    }
+
+    a {
+      color: var(--fg);
+      text-decoration: none;
+      padding: 0.75rem 0.5rem;
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+
+      svg {
+        fill: var(--bg3);
+        width: 1.75rem;
+      }
+
+      &:hover {
+        background: var(--bg);
+      }
+
+      &.active {
+        background: var(--bg);
+      }
+
+      &:link,
+      &:visited,
+      &:hover,
+      &:active {
+        color: var(--fg);
+        text-decoration: none;
+      }
+
+      & + & {
+        margin-top: 0.3rem;
+      }
+    }
+
+    hr {
+      margin: 1rem 0;
+      border: none;
+      height: 3px;
+      background: var(--bg);
+    }
   }
 }
