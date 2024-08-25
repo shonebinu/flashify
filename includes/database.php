@@ -1,6 +1,6 @@
 <?php
 
-require_once 'SECRETS.php';
+require_once __DIR__ . '/../SECRETS.php';
 
 class Database
 {

@@ -1,0 +1,22 @@
+.welcome-user {
+  img {
+    aspect-ratio: 1;
+    width: 125px;
+    border-radius: 50%;
+  }
+
+  .greetings-div {
+    h1 {
+      font-weight: 500;
+      margin-bottom: 0;
+
+      .greeting {
+        font-size: 80%;
+      }
+    }
+
+    p {
+      color: var(--fg2);
+    }
+  }
+}
