@@ -6,6 +6,10 @@
   --bg3: #a3a3a3;
   --fg: #0a0a0a;
   --fg2: #444444;
+  --fg3: grey;
+  --red: red;
+  --green: green;
+  --liked: var(--fg2);
 }
 
 * {

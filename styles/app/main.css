@@ -18,6 +18,7 @@ textarea {
 
 textarea {
   width: 30ch;
+  aspect-ratio: 4/1;
 }
 
 input[type="checkbox"] {
@@ -56,23 +57,22 @@ button.button {
 }
 
 span.error {
-  color: red;
+  color: var(--red);
   font-size: 0.9rem;
 }
 
 span.success {
-  color: green;
+  color: var(--green);
   font-size: 0.9rem;
 }
 
 span.info {
-  color: grey;
+  color: var(--fg3);
   font-size: 0.9rem;
 }
 
 body {
   display: flex;
-  min-height: 100vh;
 
   aside:has(.app-nav) {
     flex: 1;
@@ -139,6 +139,8 @@ body {
   main {
     flex: 6;
     padding: 2rem;
+    height: 100vh;
+    overflow: auto;
 
     .section {
       padding: 1.5rem 2rem;

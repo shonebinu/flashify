@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1deb5ubuntu1
+-- version 5.2.1deb1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Aug 22, 2024 at 10:58 AM
--- Server version: 10.6.18-MariaDB-0ubuntu0.22.04.1
--- PHP Version: 8.1.2-1ubuntu2.18
+-- Host: localhost
+-- Generation Time: Aug 28, 2024 at 05:50 PM
+-- Server version: 10.11.6-MariaDB-0+deb12u1
+-- PHP Version: 8.2.20
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -49,9 +49,17 @@ CREATE TABLE `decks` (
   `is_public` tinyint(1) DEFAULT 0,
   `owner` int(11) DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp(),
   `is_favorite` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `decks`
+--
+
+INSERT INTO `decks` (`id`, `name`, `description`, `is_public`, `owner`, `created_at`, `is_favorite`) VALUES
+(30, 'TypeScript', 'Superset of JavaScript', 0, 1, '2024-08-28 22:23:29', 1),
+(31, 'JavaScript', 'Subscript of TypeScript', 0, 1, '2024-08-28 22:23:47', 0),
+(32, 'Python', 'A versatile interpreted language with easy syntax. Its quite slow though. ', 0, 1, '2024-08-28 22:39:52', 0);
 
 -- --------------------------------------------------------
 
@@ -109,6 +117,14 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `created_at`) VALUES
+(1, 'Shone Binu', 'shonebinualias@gmail.com', '$2y$10$7vRx4gdtwI7e/D2kIi3v8ODJkKRvTZp/QVh9CzUzLg/vQ5fSs9iDO', '2024-08-22 18:07:53'),
+(10, 'Binu Alias', 'binualiaskm@gmail.com', '$2y$10$2LFd9y3SJXpibkIDtshrc.WYn45KmDrpYp2M5ZsNB0QdphDFRV1em', '2024-08-28 15:23:32');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -124,6 +140,7 @@ ALTER TABLE `cards`
 --
 ALTER TABLE `decks`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`),
   ADD KEY `owner` (`owner`);
 
 --
@@ -169,7 +186,7 @@ ALTER TABLE `cards`
 -- AUTO_INCREMENT for table `decks`
 --
 ALTER TABLE `decks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `deck_likes`
@@ -193,7 +210,7 @@ ALTER TABLE `statistics`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Constraints for dumped tables
