@@ -20,8 +20,7 @@ $gravatar_url = get_gravatar($_SESSION['user_email']);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flashify | Home</title>
     <link rel="icon" type="image/x-icon" href="/assets/flash-card.png">
-    <link rel="stylesheet" href="/styles/app-main.css">
-    <link rel="stylesheet" href="/styles/app-home.css">
+    <link rel="stylesheet" href="/styles/app/home.css">
 </head>
 
 <body>
