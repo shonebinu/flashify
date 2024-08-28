@@ -4,7 +4,7 @@ require_once '../includes/gravatar.php';
 
 session_start();
 
-if (!isset($_SESSION['user_name'])) {
+if (!isset($_SESSION['user_id'])) {
     header("Location: /login.php");
     exit;
 }

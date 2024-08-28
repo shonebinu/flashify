@@ -1,5 +1,58 @@
 @import "../base.css";
 
+input,
+button,
+select,
+textarea {
+  font-family: inherit;
+  color: inherit;
+}
+
+input,
+textarea {
+  border: 2px solid var(--bg);
+  border-radius: 3px;
+  font-size: 0.9rem;
+  padding: 0.25rem;
+}
+
+textarea {
+  width: 30ch;
+}
+
+input[type="checkbox"] {
+  vertical-align: middle;
+  width: 1rem;
+  aspect-ratio: 1;
+}
+
+button {
+  padding: 0.4rem 2rem;
+  font-size: 1rem;
+  cursor: pointer;
+  display: block;
+  margin-top: 1rem;
+  border-radius: 3px;
+  border: 2px solid var(--fg2);
+  background: var(--fg2);
+  color: var(--bg2);
+
+  &:hover {
+    background: var(--bg);
+    border: 2px solid var(--bg3);
+    color: var(--fg);
+  }
+
+  &:active {
+    transform: scale(1.05);
+  }
+}
+
+span.error {
+  color: red;
+  font-size: 0.9rem;
+}
+
 body {
   display: flex;
   min-height: 100vh;
@@ -74,6 +127,11 @@ body {
       padding: 1.5rem 2rem;
       border-radius: 8px;
       background: var(--bg2);
+      margin-bottom: 1rem;
+
+      > *:first-child {
+        margin-top: 0.5rem;
+      }
     }
   }
 }
