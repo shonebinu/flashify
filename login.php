@@ -10,7 +10,7 @@ if (isset($_SESSION['user_id'])) {
 }
 
 $db = new Database();
-$user_exists_warning = "";
+$user_error_message = "";
 
 if (isset($_POST['login'])) {
   $email = $_POST['email'];
@@ -20,7 +20,7 @@ if (isset($_POST['login'])) {
     header("Location: /app");
     exit;
   } else {
-    $user_exists_warning = "Incorrect email or password.";
+    $user_error_message = "Incorrect email or password.";
   }
 }
 ?>
@@ -43,7 +43,7 @@ if (isset($_POST['login'])) {
     <p>Don't have an account? <a href="register.php">Sign Up</a></p>
     <span class="error">
       <?php
-      echo $user_exists_warning;
+      echo $user_error_message;
       ?>
     </span>
     <form method="POST">

@@ -1,9 +1,17 @@
 <?php
-function getDecks($user_id, $db)
+function getDecks($user_id, $search_term, $db)
 {
-  $decks = $db->fetchAll("SELECT * FROM decks WHERE owner = :user_id", ['user_id' => $user_id]);
+  $conditions = ['owner = :user_id'];
+  $params = ['user_id' => $user_id];
 
-  return $decks;
+  if ($search_term) {
+    $conditions[] = '(name LIKE :search_term OR description LIKE :search_term)';
+    $params['search_term'] = '%' . $search_term . '%';
+  }
+
+  $query = "SELECT * FROM decks WHERE " . implode(' AND ', $conditions) . " ORDER BY is_favorite DESC, created_at DESC";
+
+  return $db->fetchAll($query, $params);
 }
 
 

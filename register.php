@@ -10,7 +10,7 @@ if (isset($_SESSION['user_id'])) {
 }
 
 $db = new Database();
-$user_exists_warning = "";
+$user_error_message = "";
 
 if (isset($_POST['register'])) {
   $name = $_POST['name'];
@@ -18,7 +18,7 @@ if (isset($_POST['register'])) {
   $password = $_POST['password'];
 
   if (empty($name) || empty($email) || empty($password)) {
-    $user_exists_warning = "All fields are required.";
+    $user_error_message = "All fields are required.";
   } else {
     $result = registerUser($name, $email, $password, $db);
 
@@ -26,7 +26,7 @@ if (isset($_POST['register'])) {
       header("Location: /app");
       exit;
     } else {
-      $user_exists_warning = $result;
+      $user_error_message = $result;
     }
   }
 }
@@ -50,7 +50,7 @@ if (isset($_POST['register'])) {
     <p>Already have an account? <a href="login.php">Sign In</a></p>
     <span class="error">
       <?php
-      echo $user_exists_warning;
+      echo $user_error_message;
       ?>
     </span>
     <form method="POST">

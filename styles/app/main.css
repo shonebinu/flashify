@@ -12,8 +12,8 @@ input,
 textarea {
   border: 2px solid var(--bg);
   border-radius: 3px;
-  font-size: 0.9rem;
-  padding: 0.25rem;
+  font-size: 1rem;
+  padding: 0.25rem 0.3rem;
 }
 
 textarea {
@@ -21,12 +21,19 @@ textarea {
 }
 
 input[type="checkbox"] {
-  vertical-align: middle;
   width: 1rem;
   aspect-ratio: 1;
 }
 
-button {
+select {
+  font-size: 1rem;
+  border: 2px solid var(--bg);
+  border-radius: 3px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+button.button {
   padding: 0.4rem 2rem;
   font-size: 1rem;
   cursor: pointer;
@@ -50,6 +57,16 @@ button {
 
 span.error {
   color: red;
+  font-size: 0.9rem;
+}
+
+span.success {
+  color: green;
+  font-size: 0.9rem;
+}
+
+span.info {
+  color: grey;
   font-size: 0.9rem;
 }
 

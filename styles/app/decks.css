@@ -1,1 +1,47 @@
 @import "main.css";
+
+p:has(input[type="checkbox"]) {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.search {
+  display: flex;
+  gap: 0.5rem;
+
+  button:has(> svg) {
+    border: 0;
+    border-radius: 3px;
+    background: var(--fg2);
+    cursor: pointer;
+    fill: var(--bg2);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+      background: var(--bg);
+      fill: var(--fg2);
+      outline: 2px solid var(--bg3);
+    }
+
+    &:active {
+      transform: scale(1.05);
+    }
+  }
+}
+
+.cards-container {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+
+  .card {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 10px;
+    background: var(--bg);
+  }
+}

@@ -10,7 +10,20 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $db = new Database();
-$user_warning = "";
+$user_success_message = "";
+$user_error_message = "";
+$search_term = "";
+
+if (isset($_SESSION['success_message'])) {
+  $user_success_message = $_SESSION['success_message'];
+  unset($_SESSION['success_message']);
+}
+
+if (isset($_GET['search'])) {
+  $search_term = $_GET['search'];
+}
+
+$current_decks = getDecks($_SESSION['user_id'], $search_term, $db);
 
 if (isset($_POST['add_deck'])) {
   $user_id = $_SESSION['user_id'];
@@ -21,7 +34,10 @@ if (isset($_POST['add_deck'])) {
   $add_deck_result = addDeck($user_id, $deck_name, $deck_description, $deck_fav, $db);
 
   if ($add_deck_result == false) {
-    $user_warning = "Duplicate names found. Please try again with an unique name for your deck.";
+    $user_error_message = "Duplicate names found. Please try again with an unique name for your deck.";
+  } else {
+    $_SESSION['success_message'] = "Deck added successfully";
+    header("Location: " . $_SERVER['PHP_SELF']);
   }
 }
 ?>
@@ -63,11 +79,44 @@ if (isset($_POST['add_deck'])) {
         </label>
         <span class="error">
           <?php
-          echo $user_warning;
+          echo $user_error_message;
           ?>
         </span>
-        <button name="add_deck">Add</button>
+        <span class="success">
+          <?php
+          echo $user_success_message;
+          ?>
+        </span>
+        <button class="button" name="add_deck">Add</button>
       </form>
+    </section>
+
+    <section class="section">
+      <h2>Current Decks</h2>
+      <form class="search">
+        <input type="search" placeholder="Search" name="search" value="<?php echo $search_term ?>">
+        <button title="Go">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+            <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
+          </svg>
+        </button>
+      </form>
+      <p>
+        <span class="info">
+          Sorted based on favorite and created at
+        </span>
+      </p>
+      <?php
+      if (count($current_decks) === 0) {
+        echo "No decks available. Create a new Deck.";
+      } else {
+        echo "<div class='cards-container'>";
+        foreach ($current_decks as $deck) {
+          echo "<div class='card'>" . $deck['name'] . "</div>";
+        }
+        echo "</div>";
+      }
+      ?>
     </section>
     <?php require_once 'components/bubbles.php' ?>
   </main>
