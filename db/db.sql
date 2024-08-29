@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 28, 2024 at 05:50 PM
+-- Generation Time: Aug 29, 2024 at 06:30 AM
 -- Server version: 10.11.6-MariaDB-0+deb12u1
 -- PHP Version: 8.2.20
 
@@ -57,9 +57,13 @@ CREATE TABLE `decks` (
 --
 
 INSERT INTO `decks` (`id`, `name`, `description`, `is_public`, `owner`, `created_at`, `is_favorite`) VALUES
-(30, 'TypeScript', 'Superset of JavaScript', 0, 1, '2024-08-28 22:23:29', 1),
-(31, 'JavaScript', 'Subscript of TypeScript', 0, 1, '2024-08-28 22:23:47', 0),
-(32, 'Python', 'A versatile interpreted language with easy syntax. Its quite slow though. ', 0, 1, '2024-08-28 22:39:52', 0);
+(31, 'JavaScript', 'I love JS!', 0, 1, '2024-08-28 22:23:47', 0),
+(32, 'Python', 'A versatile interpreted language with easy syntax. Its quite slow though. ', 0, 1, '2024-08-28 22:39:52', 0),
+(33, 'Java', 'Compiled and Interpreted, Class based.', 0, 1, '2024-08-28 23:33:38', 0),
+(35, 'C++', 'Such a pain to work with!', 0, 1, '2024-08-28 23:34:01', 0),
+(42, 'Kotlin', 'Jetbrains language made as an alternative for Java', 0, 1, '2024-08-29 09:39:40', 0),
+(47, 'Golang', 'Cure gopher made by Google!', 0, 1, '2024-08-29 11:24:35', 0),
+(50, 'TypeScript', 'TypeScript is a superset of JavaScript', 0, 1, '2024-08-29 11:53:09', 1);
 
 -- --------------------------------------------------------
 
@@ -186,7 +190,7 @@ ALTER TABLE `cards`
 -- AUTO_INCREMENT for table `decks`
 --
 ALTER TABLE `decks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `deck_likes`
