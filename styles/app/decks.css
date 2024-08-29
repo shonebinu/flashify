@@ -48,7 +48,7 @@ p:has(input[type="checkbox"]) {
     display: grid;
     grid-template-rows: repeat(3, auto);
 
-    .name {
+    .title {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -85,6 +85,29 @@ p:has(input[type="checkbox"]) {
           }
         }
       }
+    }
+  }
+}
+
+dialog {
+  border: 2px solid var(--fg3);
+  border-radius: 5px;
+  padding: 1.5rem;
+
+  form {
+    display: flex;
+    flex-direction: column;
+
+    h3 {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
     }
   }
 }

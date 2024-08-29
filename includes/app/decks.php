@@ -9,7 +9,17 @@ function getDecks($user_id, $search_term, $db)
     $params['search_term'] = '%' . $search_term . '%';
   }
 
-  $query = "SELECT * FROM decks WHERE " . implode(' AND ', $conditions) . " ORDER BY is_favorite DESC, created_at DESC";
+  $query = "
+  SELECT d.*, COALESCE(c.card_count, 0) as card_count
+  FROM decks d
+  LEFT JOIN (
+      SELECT deck_id, COUNT(*) as card_count
+      FROM cards
+      GROUP BY deck_id
+  ) c ON d.id = c.deck_id
+  WHERE " . implode(' AND ', $conditions) . "
+  ORDER BY d.is_favorite DESC, d.created_at DESC
+  ";
 
   return $db->fetchAll($query, $params);
 }
@@ -24,6 +34,24 @@ function addDeck($user_id, $deck_name, $deck_description, $deck_fav, $db)
         "owner" => $user_id,
         "name" => $deck_name,
         "description" => $deck_description,
+        "is_favorite" => $deck_fav
+      ]
+    );
+    return true;
+  } catch (Exception $e) {
+    return false;
+  }
+}
+
+function updateDeck($deck_id, $deck_name, $deck_description, $deck_fav, $db)
+{
+  try {
+    $db->execute(
+      "UPDATE decks SET name=:deck_name, description=:deck_description, is_favorite=:is_favorite WHERE id=:deck_id",
+      [
+        "deck_id" => $deck_id,
+        "deck_name" => $deck_name,
+        "deck_description" => $deck_description,
         "is_favorite" => $deck_fav
       ]
     );

@@ -14,6 +14,10 @@ textarea {
   border-radius: 3px;
   font-size: 1rem;
   padding: 0.25rem 0.3rem;
+
+  &:focus {
+    outline-color: var(--fg3);
+  }
 }
 
 textarea {

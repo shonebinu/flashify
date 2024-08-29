@@ -10,13 +10,20 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $db = new Database();
-$user_success_message = "";
-$user_error_message = "";
+$user_deck_add_success_message = "";
+$user_deck_add_error_message = "";
+$user_deck_update_success_message = "";
+$user_deck_update_error_message = "";
 $search_term = "";
 
-if (isset($_SESSION['success_message'])) {
-  $user_success_message = $_SESSION['success_message'];
-  unset($_SESSION['success_message']);
+if (isset($_SESSION['deck_add_success_message'])) {
+  $user_deck_add_success_message = $_SESSION['deck_add_success_message'];
+  unset($_SESSION['deck_add_success_message']);
+}
+
+if (isset($_SESSION['deck_update_success_message'])) {
+  $user_deck_update_success_message = $_SESSION['deck_update_success_message'];
+  unset($_SESSION['deck_update_success_message']);
 }
 
 if (isset($_GET['search'])) {
@@ -33,14 +40,27 @@ if (isset($_POST['add_deck'])) {
   $add_deck_result = addDeck($_SESSION['user_id'], $deck_name, $deck_description, $deck_fav, $db);
 
   if ($add_deck_result == false) {
-    $user_error_message = "Duplicate names found. Please try again with an unique name for your deck.";
+    $user_deck_add_error_message = "Duplicate names found. Please try again with an unique name for your deck.";
   } else {
-    $_SESSION['success_message'] = "Deck added successfully";
+    $_SESSION['deck_add_success_message'] = "Deck added successfully";
     header("Location: " . $_SERVER['PHP_SELF']);
   }
 }
 
-if (isset($_POST['deck_edit'])) {
+if (isset($_POST['deck_edit_modal'])) {
+  $deck_id = $_POST['deck_id'];
+  $deck_name = $_POST['deck_name'];
+  $deck_description = $_POST['deck_description'];
+  $deck_fav = $_POST['deck_is_fav'] ? 1 : 0;
+
+  $edit_deck_result = updateDeck($deck_id, $deck_name, $deck_description, $deck_fav, $db);
+
+  if ($edit_deck_result == false) {
+    $user_deck_update_error_message = "Duplicate names found. Please try updating again with a unique deck name.";
+  } else {
+    $_SESSION['deck_update_success_message'] = "Deck updated successfully";
+    header("Location: " . $_SERVER['PHP_SELF']);
+  }
 }
 
 if (isset($_POST['deck_delete'])) {
@@ -86,12 +106,12 @@ if (isset($_POST['deck_delete'])) {
         </label>
         <span class="error">
           <?php
-          echo $user_error_message;
+          echo $user_deck_add_error_message;
           ?>
         </span>
         <span class="success">
           <?php
-          echo $user_success_message;
+          echo $user_deck_add_success_message;
           ?>
         </span>
         <button class="button" name="add_deck">Add</button>
@@ -113,6 +133,16 @@ if (isset($_POST['deck_delete'])) {
           Sorted based on favorite and created at
         </span>
       </p>
+      <span class="error">
+        <?php
+        echo $user_deck_update_error_message;
+        ?>
+      </span>
+      <span class="success">
+        <?php
+        echo $user_deck_update_success_message;
+        ?>
+      </span>
       <?php
       if (empty($current_decks)) {
         echo "<p>No decks available. Create a new Deck.</p>";
@@ -121,8 +151,15 @@ if (isset($_POST['deck_delete'])) {
         foreach ($current_decks as $deck) {
       ?>
           <div class="card">
-            <div class="name">
-              <?= htmlspecialchars($deck['name']) ?>
+            <div class="title">
+              <div>
+                <?= htmlspecialchars($deck['name']) ?>
+                <span class="info">
+                  (
+                  <?= htmlspecialchars($deck['card_count']) ?>
+                  )
+                </span>
+              </div>
               <?php if ($deck['is_favorite']): ?>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                   <title>Edit the deck to remove favorite</title>
@@ -134,7 +171,7 @@ if (isset($_POST['deck_delete'])) {
             <div class="actions">
               <form method="POST">
                 <input type="hidden" name="deck_id" value="<?= $deck['id'] ?>">
-                <button type="submit" name="deck_edit">Edit</button>
+                <button type="button" class="deck_edit" data-deck-data='<?= htmlspecialchars(json_encode($deck)) ?>'>Edit</button>
                 <button type="submit" name="deck_delete" onclick="return confirmDelete()">Delete</button>
               </form>
             </div>
@@ -144,6 +181,7 @@ if (isset($_POST['deck_delete'])) {
         echo "</div>";
       }
       ?>
+      <dialog id="deck_edit_modal"></dialog>
     </section>
     <?php require_once 'components/bubbles.php' ?>
   </main>
@@ -151,6 +189,50 @@ if (isset($_POST['deck_delete'])) {
     function confirmDelete() {
       return confirm('Are you sure you want to delete this deck and the cards contained in this deck?\n\nThis action will also remove this deck from the public market.');
     }
+
+    const editDeckButtons = document.querySelectorAll("button.deck_edit");
+    const editDeckModal = document.querySelector("dialog#deck_edit_modal")
+
+    editDeckButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        const deckData = JSON.parse(button.getAttribute("data-deck-data"));
+        const modalContent = `
+          <form method="POST">
+            <h3>Edit Deck</h3>
+            <input type="hidden" name="deck_id" value="${deckData.id}">
+
+            <label>
+            <p>Name of the Deck:</p>
+            <input type="text" name="deck_name" value="${deckData.name}">
+            </label>
+
+            <label>
+            <p>Description:</p>
+            <textarea name="deck_description">${deckData.description}</textarea>
+            </label>
+
+            <label>
+            <p>Favorite:
+            <input type="checkbox" name="deck_is_fav" ${deckData.is_favorite ? 'checked' : ''}>
+            </p>
+            </label>
+
+            <div class="actions">
+              <button class="button close_modal" type="button">Close</button>
+              <button class="button" name="deck_edit_modal" type="submit">Save</button>
+            </div>
+
+          </form>
+        `;
+        editDeckModal.innerHTML = modalContent;
+        editDeckModal.showModal();
+
+        const closeModalButton = document.querySelector("button.close_modal")
+        closeModalButton.addEventListener("click", () => {
+          editDeckModal.close();
+        })
+      });
+    });
   </script>
 </body>
 
