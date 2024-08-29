@@ -26,12 +26,11 @@ if (isset($_GET['search'])) {
 $current_decks = getDecks($_SESSION['user_id'], $search_term, $db);
 
 if (isset($_POST['add_deck'])) {
-  $user_id = $_SESSION['user_id'];
   $deck_name = $_POST['deck_name'];
   $deck_description = $_POST['deck_description'];
   $deck_fav = $_POST['deck_is_fav'] ? 1 : 0;
 
-  $add_deck_result = addDeck($user_id, $deck_name, $deck_description, $deck_fav, $db);
+  $add_deck_result = addDeck($_SESSION['user_id'], $deck_name, $deck_description, $deck_fav, $db);
 
   if ($add_deck_result == false) {
     $user_error_message = "Duplicate names found. Please try again with an unique name for your deck.";
@@ -39,6 +38,14 @@ if (isset($_POST['add_deck'])) {
     $_SESSION['success_message'] = "Deck added successfully";
     header("Location: " . $_SERVER['PHP_SELF']);
   }
+}
+
+if (isset($_POST['deck_edit'])) {
+}
+
+if (isset($_POST['deck_delete'])) {
+  deleteDeck($_SESSION['user_id'], $_POST['deck_id'], $db);
+  header("Location: " . $_SERVER['PHP_SELF']);
 }
 ?>
 
@@ -107,21 +114,32 @@ if (isset($_POST['add_deck'])) {
         </span>
       </p>
       <?php
-      if (count($current_decks) === 0) {
-        echo "No decks available. Create a new Deck.";
+      if (empty($current_decks)) {
+        echo "<p>No decks available. Create a new Deck.</p>";
       } else {
         echo "<div class='cards-container'>";
         foreach ($current_decks as $deck) {
-          echo "<div class='card'>";
-          echo "<div class='name'>" . $deck['name'];
-          if ($deck['is_favorite']) {
-            echo '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Edit the deck to remove favorite</title><path d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z" /></svg>';
-          }
-          echo "</div>";
-          echo "<div class='description'>" . $deck['description'] . "</div>";
-          echo "<input type=number name=deck_id value=" . $deck['id'] . " hidden>";
-          echo "<div class=actions><button>Edit</button><button>Delete</button></div>";
-          echo "</div>";
+      ?>
+          <div class="card">
+            <div class="name">
+              <?= htmlspecialchars($deck['name']) ?>
+              <?php if ($deck['is_favorite']): ?>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <title>Edit the deck to remove favorite</title>
+                  <path d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z" />
+                </svg>
+              <?php endif; ?>
+            </div>
+            <div class="description"><?= htmlspecialchars($deck['description']) ?></div>
+            <div class="actions">
+              <form method="POST">
+                <input type="hidden" name="deck_id" value="<?= $deck['id'] ?>">
+                <button type="submit" name="deck_edit">Edit</button>
+                <button type="submit" name="deck_delete" onclick="return confirmDelete()">Delete</button>
+              </form>
+            </div>
+          </div>
+      <?php
         }
         echo "</div>";
       }
@@ -129,6 +147,11 @@ if (isset($_POST['add_deck'])) {
     </section>
     <?php require_once 'components/bubbles.php' ?>
   </main>
+  <script>
+    function confirmDelete() {
+      return confirm('Are you sure you want to delete this deck and the cards contained in this deck?\n\nThis action will also remove this deck from the public market.');
+    }
+  </script>
 </body>
 
 </html>
