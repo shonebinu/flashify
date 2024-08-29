@@ -32,3 +32,14 @@ function addDeck($user_id, $deck_name, $deck_description, $deck_fav, $db)
     return false;
   }
 }
+
+function deleteDeck($user_id, $deck_id, $db)
+{
+  $db->execute(
+    "DELETE FROM decks WHERE owner=:user_id AND id=:deck_id",
+    [
+      "deck_id" => $deck_id,
+      "user_id" => $user_id
+    ]
+  );
+}

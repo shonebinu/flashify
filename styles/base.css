@@ -7,8 +7,9 @@
   --fg: #0a0a0a;
   --fg2: #444444;
   --fg3: grey;
-  --red: red;
-  --green: green;
+  --red: #f87171;
+  --green: #34d399;
+  --blue: #3b82f6;
   --liked: var(--fg2);
 }
 
