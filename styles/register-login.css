@@ -15,16 +15,15 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-
 }
 
 h2 {
   margin-bottom: 0;
 }
 
-h2+p,
+h2 + p,
 span[class="error"] {
-  font-size: .9rem;
+  font-size: 0.9rem;
   color: var(--fg2);
 
   a:link {
@@ -53,7 +52,7 @@ img {
 
 label {
   display: block;
-  font-size: .95rem;
+  font-size: 0.95rem;
 }
 
 input {
@@ -62,8 +61,8 @@ input {
   border-radius: 5px;
   height: 2.25rem;
   color: var(--fg);
-  padding-left: .5rem;
-  font-size: .95rem;
+  padding-left: 0.5rem;
+  font-size: 0.95rem;
   margin-bottom: 1rem;
 }
 
@@ -81,19 +80,22 @@ button {
   font-size: 1rem;
   background: var(--fg2);
   color: var(--bg);
-  border: 2px solid var(--bg);
+  border: 2px solid var(--fg2);
   border-radius: 5px;
-  padding: .5rem 1.25rem;
+  padding: 0.5rem 1.25rem;
   cursor: pointer;
-  margin: .5rem auto;
+  margin: 0.5rem auto;
 }
 
 button:hover {
   background: var(--bg2);
   color: var(--fg);
-  transition: .3s;
+  transition: 0.3s;
 }
 
+button:active {
+  transform: scale(1.05);
+}
 
 .bubbles {
   position: absolute;
