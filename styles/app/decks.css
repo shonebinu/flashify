@@ -44,9 +44,16 @@ p:has(input[type="checkbox"]) {
     border-radius: 10px;
     background: var(--bg);
     border-left: 5px solid var(--fg2);
+    cursor: pointer;
 
     display: grid;
     grid-template-rows: repeat(3, auto);
+
+    transition: transform 0.3s;
+
+    &:hover {
+      transform: scale(1.05);
+    }
 
     .info {
       white-space: nowrap;
@@ -106,6 +113,12 @@ dialog {
       margin-top: 0;
       margin-bottom: 0.5rem;
       text-align: center;
+    }
+
+    .created-at {
+      margin-top: 0;
+      font-size: small;
+      color: var(--bg3);
     }
 
     .actions {
