@@ -150,10 +150,10 @@ if (isset($_POST['deck_delete'])) {
         echo "<div class='cards-container'>";
         foreach ($current_decks as $deck) {
       ?>
-          <div class="card" onclick="window.location.href='cards.php?deck_id=<?= $deck['id'] ?>'">
+          <div class="card">
             <div class="title">
               <div>
-                <?= htmlspecialchars($deck['name']) ?>
+                <a href="cards.php?deck_id=<?= $deck['id'] ?>" class="deck-name" title="View Cards"><?= htmlspecialchars($deck['name']) ?></a>
                 <span class="info">
                   (
                   <?= htmlspecialchars($deck['card_count']) ?>
@@ -194,15 +194,8 @@ if (isset($_POST['deck_delete'])) {
     const editDeckButtons = document.querySelectorAll("button.deck_edit");
     const editDeckModal = document.querySelector("dialog#deck_edit_modal")
 
-    deleteButtons.forEach(button => {
-      button.addEventListener("click", (e) => {
-        e.stopPropagation();
-      });
-    });
-
     editDeckButtons.forEach(button => {
-      button.addEventListener("click", (e) => {
-        e.stopPropagation();
+      button.addEventListener("click", () => {
         const deckData = JSON.parse(button.getAttribute("data-deck-data"));
         const modalContent = `
           <form method="POST">

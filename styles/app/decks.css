@@ -44,7 +44,6 @@ p:has(input[type="checkbox"]) {
     border-radius: 10px;
     background: var(--bg);
     border-left: 5px solid var(--fg2);
-    cursor: pointer;
 
     display: grid;
     grid-template-rows: repeat(3, auto);
@@ -53,6 +52,15 @@ p:has(input[type="checkbox"]) {
 
     &:hover {
       transform: scale(1.05);
+    }
+
+    .deck-name {
+      color: var(--fg);
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
 
     .info {
