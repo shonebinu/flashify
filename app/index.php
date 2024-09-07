@@ -25,6 +25,7 @@ $gravatar_url = get_gravatar($_SESSION['user_email']);
 
 <body>
     <?php require_once 'components/nav.php' ?>
+    <?php require_once 'components/bubbles.php' ?>
     <main>
         <section class="section welcome-user">
             <img src=<?php echo $gravatar_url ? $gravatar_url : "/assets/avatar.svg" ?> alt="Avatar image">
@@ -33,7 +34,6 @@ $gravatar_url = get_gravatar($_SESSION['user_email']);
                 <p>We hope you have a productive session.</p>
             </div>
         </section>
-        <?php require_once 'components/bubbles.php' ?>
     </main>
 
     <script defer>

@@ -24,6 +24,15 @@ textarea {
   }
 }
 
+a {
+  text-decoration: none;
+  color: var(--blue);
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
 textarea {
   width: 30ch;
   aspect-ratio: 4/1;
@@ -38,8 +47,7 @@ select {
   font-size: 1rem;
   border: 2px solid var(--bg);
   border-radius: 3px;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding: 0.5rem;
 }
 
 button.button {

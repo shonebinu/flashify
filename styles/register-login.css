@@ -26,17 +26,13 @@ span[class="error"] {
   font-size: 0.9rem;
   color: var(--fg2);
 
-  a:link {
+  a {
     text-decoration: none;
     color: var(--blue);
-  }
 
-  a:visited {
-    color: var(--blue);
-  }
-
-  a:link:hover {
-    text-decoration: underline;
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }
 

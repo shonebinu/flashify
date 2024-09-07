@@ -82,6 +82,7 @@ if (isset($_POST['deck_delete'])) {
 
 <body>
   <?php require_once 'components/nav.php' ?>
+  <?php require_once 'components/bubbles.php' ?>
   <main>
     <section class="section add">
       <h2>Add a new Deck</h2>
@@ -183,7 +184,6 @@ if (isset($_POST['deck_delete'])) {
       ?>
       <dialog id="deck_edit_modal"></dialog>
     </section>
-    <?php require_once 'components/bubbles.php' ?>
   </main>
   <script>
     function confirmDelete() {

@@ -23,8 +23,8 @@ if (!isset($_SESSION['user_id'])) {
 
 <body>
   <?php require_once 'components/nav.php' ?>
+  <?php require_once 'components/bubbles.php' ?>
   <main>
-    <?php require_once 'components/bubbles.php' ?>
   </main>
 </body>
 
