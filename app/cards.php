@@ -21,10 +21,16 @@ $selected_deck_cards_count;
 
 $deck_cards;
 $user_card_add_success_message = "";
+$user_card_delete_success_message = "";
 
 if (isset($_SESSION['card_add_success_message'])) {
   $user_card_add_success_message = $_SESSION['card_add_success_message'];
   unset($_SESSION['card_add_success_message']);
+}
+
+if (isset($_SESSION['card_delete_success_message'])) {
+  $user_card_delete_success_message = $_SESSION['card_delete_success_message'];
+  unset($_SESSION['card_delete_success_message']);
 }
 
 if ($selected_deck) {
@@ -51,6 +57,15 @@ if (isset($_POST['add-card'])) {
   addCard($selected_deck, $card_qn, $card_ans, $db);
 
   $_SESSION["card_add_success_message"] = "Card added successfully";
+  header("Location: " . $_SERVER['REQUEST_URI']);
+}
+
+if (isset($_POST['card-delete'])) {
+  $card_id = $_POST['card-id'];
+
+  deleteCard($selected_deck, $card_id, $db);
+
+  $_SESSION["card_delete_success_message"] = "Card deleted successfully";
   header("Location: " . $_SERVER['REQUEST_URI']);
 }
 ?>
@@ -110,6 +125,7 @@ if (isset($_POST['add-card'])) {
       </h2>
       <p><?= $selected_deck_description ?></p>
       <span class="success"><?= $user_card_add_success_message ?></span>
+      <span class="success"><?= $user_card_delete_success_message ?></span>
       <div class="table-container">
         <table class="cards">
           <tr>
@@ -131,9 +147,12 @@ if (isset($_POST['add-card'])) {
             <tr>
               <td class="question"><?= htmlspecialchars($card['question']) ?></td>
               <td class="answer"><?= htmlspecialchars($card['answer']) ?></td>
-              <td class="actions">
-                <button class="edit button" data-id="<?= $card['id'] ?>">Edit</button>
-                <button class="delete button" data-id="<?= $card['id'] ?>">Delete</button>
+              <td>
+                <form class="actions" method="POST">
+                  <input type="hidden" name="card-id" value="<?= $card['id'] ?>">
+                  <button class="edit button">Edit</button>
+                  <button class="button" name="card-delete" onclick="return confirmDelete()">Delete</button>
+                </form>
               </td>
             </tr>
           <?php endforeach; ?>
@@ -159,6 +178,10 @@ if (isset($_POST['add-card'])) {
     </section>
   </main>
   <script>
+    function confirmDelete() {
+      return confirm('Are you sure you want to delete this card and its related statistic data.');
+    }
+
     const addCardButton = document.querySelector(".add-card button");
     const addCardDialog = document.querySelector("dialog#add-card");
 

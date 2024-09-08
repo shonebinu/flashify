@@ -55,6 +55,9 @@ table.cards {
   }
 
   .actions {
+    display: flex;
+    gap: 0.5rem;
+
     button {
       font-size: 0.9rem;
       margin-top: 0;

@@ -14,3 +14,11 @@ function addCard($deck_id, $card_qn, $card_ans, $db)
     ["deck_id" => $deck_id, "card_qn" => $card_qn, "card_ans" => $card_ans]
   );
 }
+
+function deleteCard($deck_id, $card_id, $db)
+{
+  $db->execute(
+    "DELETE FROM cards WHERE id=:card_id AND deck_id=:deck_id",
+    ["card_id" => $card_id, "deck_id" => $deck_id]
+  );
+}
