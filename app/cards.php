@@ -77,7 +77,7 @@ if (isset($_POST['edit-card'])) {
   header("Location: " . $_SERVER['REQUEST_URI']);
 }
 
-if (isset($_POST['card-delete'])) {
+if (isset($_POST['delete-card'])) {
   $card_id = $_POST['card-id'];
 
   deleteCard($selected_deck, $card_id, $db);
@@ -170,7 +170,7 @@ if (isset($_POST['card-delete'])) {
                 <form class="actions" method="POST">
                   <input type="hidden" name="card-id" value="<?= $card['id'] ?>">
                   <button type="button" class="edit button" data-card-data='<?= htmlspecialchars(json_encode($card)) ?>'>Edit</button>
-                  <button class="button" name="card-delete" onclick="return confirmDelete()">Delete</button>
+                  <button class="button" name="delete-card" onclick="return confirmDelete()">Delete</button>
                 </form>
               </td>
             </tr>
