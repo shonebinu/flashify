@@ -36,7 +36,7 @@ p:has(input[type="checkbox"]) {
 .cards-container {
   display: grid;
   gap: 1rem;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
 
   .card {
     margin-top: 1rem;
@@ -85,6 +85,7 @@ p:has(input[type="checkbox"]) {
     }
 
     .actions {
+      padding-top: 0.75rem;
       align-self: flex-end;
       justify-self: flex-end;
 

@@ -61,7 +61,8 @@ button.button {
   background: var(--fg2);
   color: var(--bg2);
 
-  &:hover {
+  &:hover,
+  &:focus {
     background: var(--bg);
     border: 2px solid var(--bg3);
     color: var(--fg);

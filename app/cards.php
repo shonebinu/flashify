@@ -21,11 +21,17 @@ $selected_deck_cards_count;
 
 $deck_cards;
 $user_card_add_success_message = "";
+$user_card_update_success_message = "";
 $user_card_delete_success_message = "";
 
 if (isset($_SESSION['card_add_success_message'])) {
   $user_card_add_success_message = $_SESSION['card_add_success_message'];
   unset($_SESSION['card_add_success_message']);
+}
+
+if (isset($_SESSION['card_update_success_message'])) {
+  $user_card_update_success_message = $_SESSION['card_update_success_message'];
+  unset($_SESSION['card_update_success_message']);
 }
 
 if (isset($_SESSION['card_delete_success_message'])) {
@@ -60,6 +66,17 @@ if (isset($_POST['add-card'])) {
   header("Location: " . $_SERVER['REQUEST_URI']);
 }
 
+if (isset($_POST['edit-card'])) {
+  $card_id = $_POST['card-id'];
+  $card_qn = $_POST['card-qn'];
+  $card_ans = $_POST['card-ans'];
+
+  updateCard($selected_deck, $card_id, $card_qn, $card_ans, $db);
+
+  $_SESSION["card_update_success_message"] = "Card updated successfully";
+  header("Location: " . $_SERVER['REQUEST_URI']);
+}
+
 if (isset($_POST['card-delete'])) {
   $card_id = $_POST['card-id'];
 
@@ -68,6 +85,7 @@ if (isset($_POST['card-delete'])) {
   $_SESSION["card_delete_success_message"] = "Card deleted successfully";
   header("Location: " . $_SERVER['REQUEST_URI']);
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -125,6 +143,7 @@ if (isset($_POST['card-delete'])) {
       </h2>
       <p><?= $selected_deck_description ?></p>
       <span class="success"><?= $user_card_add_success_message ?></span>
+      <span class="success"><?= $user_card_update_success_message ?></span>
       <span class="success"><?= $user_card_delete_success_message ?></span>
       <div class="table-container">
         <table class="cards">
@@ -150,7 +169,7 @@ if (isset($_POST['card-delete'])) {
               <td>
                 <form class="actions" method="POST">
                   <input type="hidden" name="card-id" value="<?= $card['id'] ?>">
-                  <button class="edit button">Edit</button>
+                  <button type="button" class="edit button" data-card-data='<?= htmlspecialchars(json_encode($card)) ?>'>Edit</button>
                   <button class="button" name="card-delete" onclick="return confirmDelete()">Delete</button>
                 </form>
               </td>
@@ -158,7 +177,8 @@ if (isset($_POST['card-delete'])) {
           <?php endforeach; ?>
         </table>
       </div>
-      <dialog id="add-card">
+
+      <dialog class="add-card">
         <form method="POST">
           <h3>Add Card</h3>
           <label>
@@ -170,8 +190,29 @@ if (isset($_POST['card-delete'])) {
             <textarea name="card-ans" placeholder="Answer"></textarea>
           </label>
           <div class="actions">
-            <button class=" button close_modal" type="button">Close</button>
+            <button class="button close-modal" type="button">Close</button>
             <button class="button" name="add-card">Add</button>
+          </div>
+        </form>
+      </dialog>
+
+      <dialog class="edit-card">
+        <form method="POST">
+          <h3>Edit Card</h3>
+
+          <input type="hidden" name="card-id">
+
+          <label>
+            <p>Card Question:</p>
+            <textarea name="card-qn"></textarea>
+          </label>
+          <label>
+            <p>Card Answer:</p>
+            <textarea name="card-ans"></textarea>
+          </label>
+          <div class="actions">
+            <button class="button close-modal" type="button">Close</button>
+            <button class="button" name="edit-card">Save</button>
           </div>
         </form>
       </dialog>
@@ -183,16 +224,36 @@ if (isset($_POST['card-delete'])) {
     }
 
     const addCardButton = document.querySelector(".add-card button");
-    const addCardDialog = document.querySelector("dialog#add-card");
+    const addCardDialog = document.querySelector("dialog.add-card");
+    const addCardCloseModalButton = addCardDialog.querySelector("button.close-modal");
+
+    const editCardButtons = document.querySelectorAll(".actions .edit");
+    const editCardDialog = document.querySelector("dialog.edit-card");
+    const editCardCloseModalButton = editCardDialog.querySelector("button.close-modal");
 
     addCardButton.addEventListener("click", () => {
       addCardDialog.showModal();
-    })
+    });
 
-    const closeModalButton = document.querySelector("button.close_modal")
-    closeModalButton.addEventListener("click", () => {
+    addCardCloseModalButton.addEventListener("click", () => {
       addCardDialog.close();
-    })
+    });
+
+    editCardButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        const cardData = JSON.parse(button.getAttribute("data-card-data"));
+
+        editCardDialog.querySelector('[name="card-id"]').value = cardData.id;
+        editCardDialog.querySelector('[name="card-qn"]').value = cardData.question;
+        editCardDialog.querySelector('[name="card-ans"]').value = cardData.answer;
+
+        editCardDialog.showModal();
+      });
+    });
+
+    editCardCloseModalButton.addEventListener("click", () => {
+      editCardDialog.close();
+    });
   </script>
 </body>
 

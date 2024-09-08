@@ -27,6 +27,10 @@ table.cards {
     padding: 0.5rem;
   }
 
+  td {
+    font-size: 0.95rem;
+  }
+
   .add-card {
     text-align: center;
 

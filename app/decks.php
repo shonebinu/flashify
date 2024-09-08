@@ -39,9 +39,9 @@ if (isset($_GET['search'])) {
 $current_decks = getDecks($_SESSION['user_id'], $search_term, $db);
 
 if (isset($_POST['add_deck'])) {
-  $deck_name = $_POST['deck_name'];
-  $deck_description = $_POST['deck_description'];
-  $deck_fav = $_POST['deck_is_fav'] ? 1 : 0;
+  $deck_name = $_POST['deck-name'];
+  $deck_description = $_POST['deck-description'];
+  $deck_fav = $_POST['deck-is-fav'] ? 1 : 0;
 
   $add_deck_result = addDeck($_SESSION['user_id'], $deck_name, $deck_description, $deck_fav, $db);
 
@@ -53,11 +53,11 @@ if (isset($_POST['add_deck'])) {
   }
 }
 
-if (isset($_POST['deck_edit_modal'])) {
-  $deck_id = $_POST['deck_id'];
-  $deck_name = $_POST['deck_name'];
-  $deck_description = $_POST['deck_description'];
-  $deck_fav = $_POST['deck_is_fav'] ? 1 : 0;
+if (isset($_POST['deck-edit-modal'])) {
+  $deck_id = $_POST['deck-id'];
+  $deck_name = $_POST['deck-name'];
+  $deck_description = $_POST['deck-description'];
+  $deck_fav = $_POST['deck-is-fav'] ? 1 : 0;
 
   $edit_deck_result = updateDeck($deck_id, $deck_name, $deck_description, $deck_fav, $db);
 
@@ -69,8 +69,8 @@ if (isset($_POST['deck_edit_modal'])) {
   }
 }
 
-if (isset($_POST['deck_delete'])) {
-  deleteDeck($_SESSION['user_id'], $_POST['deck_id'], $db);
+if (isset($_POST['deck-delete'])) {
+  deleteDeck($_SESSION['user_id'], $_POST['deck-id'], $db);
   $_SESSION['deck_delete_success_message'] = "Deck deleted successfully";
   header("Location: " . $_SERVER['PHP_SELF']);
 }
@@ -98,29 +98,25 @@ if (isset($_POST['deck_delete'])) {
           <p>
             Name of the Deck:
           </p>
-          <input type="text" name="deck_name" placeholder="Name" required>
+          <input type="text" name="deck-name" placeholder="Name" required>
         </label>
         <label>
           <p>
             Description of the Deck:
           </p>
-          <textarea name="deck_description" placeholder="Description"></textarea>
+          <textarea name="deck-description" placeholder="Description"></textarea>
         </label>
         <label>
           <p>
             Favorite the Deck:
-            <input type="checkbox" name="deck_is_fav">
+            <input type="checkbox" name="deck-is-fav">
           </p>
         </label>
         <span class="error">
-          <?php
-          echo $user_deck_add_error_message;
-          ?>
+          <?= $user_deck_add_error_message; ?>
         </span>
         <span class="success">
-          <?php
-          echo $user_deck_add_success_message;
-          ?>
+          <?= $user_deck_add_success_message; ?>
         </span>
         <button class="button" name="add_deck">Add</button>
       </form>
@@ -129,7 +125,7 @@ if (isset($_POST['deck_delete'])) {
     <section class="section">
       <h2>Current Decks</h2>
       <form class="search">
-        <input type="search" placeholder="Search" name="search" value="<?php echo $search_term ?>">
+        <input type="search" placeholder="Search" name="search" value="<?= $search_term ?>">
         <button title="Go">
           <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
             <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
@@ -148,7 +144,10 @@ if (isset($_POST['deck_delete'])) {
 
       <?php
       if (empty($current_decks)) {
-        echo "<p>No decks available. Create a new Deck.</p>";
+        if ($search_term == "")
+          echo "<p>No decks available. Create a new Deck.</p>";
+        else
+          echo "<p>No decks available with the given search term.</p>";
       } else {
         echo "<div class='cards-container'>";
         foreach ($current_decks as $deck) {
@@ -173,9 +172,10 @@ if (isset($_POST['deck_delete'])) {
             <div class="description"><?= htmlspecialchars($deck['description']) ?></div>
             <div class="actions">
               <form method="POST">
-                <input type="hidden" name="deck_id" value="<?= $deck['id'] ?>">
-                <button type="button" class="deck_edit" data-deck-data='<?= htmlspecialchars(json_encode($deck)) ?>'>Edit</button>
-                <button name="deck_delete" onclick="return confirmDelete()">Delete</button>
+                <input type="hidden" name="deck-id" value="<?= $deck['id'] ?>">
+                <button type="button" class="deck-edit" data-deck-data='<?= htmlspecialchars(json_encode($deck)) ?>'>Edit</button>
+                <button name="deck-delete" onclick="return confirmDelete()">Delete</button>
+                <button type="button" onclick="window.location.href='review.php?deck_id=<?= $deck['id'] ?>'">Review</button>
               </form>
             </div>
           </div>
@@ -184,7 +184,35 @@ if (isset($_POST['deck_delete'])) {
         echo "</div>";
       }
       ?>
-      <dialog id="deck_edit_modal"></dialog>
+      <dialog>
+        <form method="POST">
+          <h3>Edit Deck</h3>
+          <input type="hidden" name="deck-id">
+
+          <label>
+            <p>Name of the Deck:</p>
+            <input type="text" name="deck-name">
+          </label>
+
+          <label>
+            <p>Description:</p>
+            <textarea name="deck-description"></textarea>
+          </label>
+
+          <label>
+            <p>Favorite:
+              <input type="checkbox" name="deck-is-fav">
+            </p>
+          </label>
+
+          <p class="created-at">Created at: <span></span></p>
+
+          <div class="actions">
+            <button class="button close-modal" type="button">Close</button>
+            <button class="button" name="deck-edit-modal" type="submit">Save</button>
+          </div>
+        </form>
+      </dialog>
     </section>
   </main>
   <script>
@@ -192,51 +220,27 @@ if (isset($_POST['deck_delete'])) {
       return confirm('Are you sure you want to delete this deck and the cards contained in this deck?\n\nThis action will also remove this deck from the public market.');
     }
 
-    const deleteButtons = document.querySelectorAll("button[name='deck_delete']");
-    const editDeckButtons = document.querySelectorAll("button.deck_edit");
-    const editDeckModal = document.querySelector("dialog#deck_edit_modal")
+    const deleteButtons = document.querySelectorAll("button[name='deck-delete']");
+    const editDeckButtons = document.querySelectorAll("button.deck-edit");
+    const editDeckModal = document.querySelector("dialog");
+    const closeModalButton = editDeckModal.querySelector("button.close-modal");
 
     editDeckButtons.forEach(button => {
       button.addEventListener("click", () => {
         const deckData = JSON.parse(button.getAttribute("data-deck-data"));
-        const modalContent = `
-          <form method="POST">
-            <h3>Edit Deck</h3>
-            <input type="hidden" name="deck_id" value="${deckData.id}">
 
-            <label>
-            <p>Name of the Deck:</p>
-            <input type="text" name="deck_name" value="${deckData.name}">
-            </label>
+        editDeckModal.querySelector('[name="deck-id"]').value = deckData.id;
+        editDeckModal.querySelector('[name="deck-name"]').value = deckData.name;
+        editDeckModal.querySelector('[name="deck-description"]').value = deckData.description;
+        editDeckModal.querySelector('[name="deck-is-fav"]').checked = deckData.is_favorite;
+        editDeckModal.querySelector('.created-at span').textContent = deckData.created_at;
 
-            <label>
-            <p>Description:</p>
-            <textarea name="deck_description">${deckData.description}</textarea>
-            </label>
-
-            <label>
-            <p>Favorite:
-            <input type="checkbox" name="deck_is_fav" ${deckData.is_favorite ? 'checked' : ''}>
-            </p>
-            </label>
-            
-            <p class="created-at">Created at: <span>${deckData.created_at}</span></p>
-
-            <div class="actions">
-              <button class="button close_modal" type="button">Close</button>
-              <button class="button" name="deck_edit_modal" type="submit">Save</button>
-            </div>
-
-          </form>
-        `;
-        editDeckModal.innerHTML = modalContent;
         editDeckModal.showModal();
-
-        const closeModalButton = document.querySelector("button.close_modal")
-        closeModalButton.addEventListener("click", () => {
-          editDeckModal.close();
-        })
       });
+    });
+
+    closeModalButton.addEventListener("click", () => {
+      editDeckModal.close();
     });
   </script>
 </body>

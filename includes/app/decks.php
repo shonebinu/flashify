@@ -10,7 +10,7 @@ function getDecks($user_id, $search_term, $db)
   }
 
   $query = "
-  SELECT d.*, COALESCE(c.card_count, 0) as card_count
+  SELECT d.id, d.name, d.description, d.is_favorite, d.created_at, COALESCE(c.card_count, 0) as card_count
   FROM decks d
   LEFT JOIN (
       SELECT deck_id, COUNT(*) as card_count
@@ -23,7 +23,6 @@ function getDecks($user_id, $search_term, $db)
 
   return $db->fetchAll($query, $params);
 }
-
 
 function addDeck($user_id, $deck_name, $deck_description, $deck_fav, $db)
 {
