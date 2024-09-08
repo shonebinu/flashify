@@ -1,1 +1,64 @@
 @import "main.css";
+
+.deck-title {
+  display: flex;
+  gap: 0.5rem;
+
+  svg {
+    width: 1.5rem;
+    aspect-ratio: 1;
+    fill: var(--fg);
+  }
+
+  .card-count {
+    color: var(--fg3);
+  }
+}
+
+table.cards {
+  margin-top: 2rem;
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+
+  th,
+  td {
+    border: 2px solid var(--bg);
+    padding: 0.5rem;
+  }
+
+  .add-card {
+    text-align: center;
+
+    button {
+      width: 100%;
+      padding: 0.25rem;
+      background: var(--bg);
+      border: 2px solid transparent;
+      border-radius: 5px;
+      cursor: pointer;
+
+      &:hover {
+        border-color: var(--bg3);
+      }
+
+      &:active {
+        transform: scale(1.05);
+      }
+
+      svg {
+        width: 1.75rem;
+        aspect-ratio: 1;
+        fill: var(--fg2);
+      }
+    }
+  }
+
+  .actions {
+    button {
+      font-size: 0.9rem;
+      margin-top: 0;
+      display: inline;
+    }
+  }
+}

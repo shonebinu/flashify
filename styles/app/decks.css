@@ -74,7 +74,7 @@ p:has(input[type="checkbox"]) {
 
       svg {
         width: 1.2rem;
-        fill: var(--liked);
+        fill: var(--fg2);
       }
     }
 
@@ -108,31 +108,10 @@ p:has(input[type="checkbox"]) {
   }
 }
 
-dialog {
-  border: 2px solid var(--fg3);
-  border-radius: 5px;
-  padding: 1.5rem;
-
-  form {
-    display: flex;
-    flex-direction: column;
-
-    h3 {
-      margin-top: 0;
-      margin-bottom: 0.5rem;
-      text-align: center;
-    }
-
-    .created-at {
-      margin-top: 0;
-      font-size: small;
-      color: var(--bg3);
-    }
-
-    .actions {
-      display: flex;
-      justify-content: center;
-      gap: 0.5rem;
-    }
+dialog form {
+  .created-at {
+    margin-top: 0;
+    font-size: small;
+    color: var(--bg3);
   }
 }

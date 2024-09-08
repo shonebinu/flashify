@@ -64,6 +64,11 @@ function updateDeck($deck_id, $deck_name, $deck_description, $deck_fav, $db)
 function deleteDeck($user_id, $deck_id, $db)
 {
   $db->execute(
+    "DELETE FROM cards WHERE deck_id=:deck_id",
+    ["deck_id" => $deck_id]
+  );
+
+  $db->execute(
     "DELETE FROM decks WHERE owner=:user_id AND id=:deck_id",
     [
       "deck_id" => $deck_id,

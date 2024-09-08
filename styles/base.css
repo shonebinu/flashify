@@ -10,7 +10,6 @@
   --red: red;
   --green: green;
   --blue: #3b82f6;
-  --liked: var(--fg2);
 }
 
 * {
