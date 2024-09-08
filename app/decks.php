@@ -14,6 +14,7 @@ $user_deck_add_success_message = "";
 $user_deck_add_error_message = "";
 $user_deck_update_success_message = "";
 $user_deck_update_error_message = "";
+$user_deck_delete_error_message = "";
 $search_term = "";
 
 if (isset($_SESSION['deck_add_success_message'])) {
@@ -24,6 +25,11 @@ if (isset($_SESSION['deck_add_success_message'])) {
 if (isset($_SESSION['deck_update_success_message'])) {
   $user_deck_update_success_message = $_SESSION['deck_update_success_message'];
   unset($_SESSION['deck_update_success_message']);
+}
+
+if (isset($_SESSION['deck_delete_success_message'])) {
+  $user_deck_delete_success_message = $_SESSION['deck_delete_success_message'];
+  unset($_SESSION['deck_delete_success_message']);
 }
 
 if (isset($_GET['search'])) {
@@ -65,6 +71,7 @@ if (isset($_POST['deck_edit_modal'])) {
 
 if (isset($_POST['deck_delete'])) {
   deleteDeck($_SESSION['user_id'], $_POST['deck_id'], $db);
+  $_SESSION['deck_delete_success_message'] = "Deck deleted successfully";
   header("Location: " . $_SERVER['PHP_SELF']);
 }
 ?>
@@ -134,16 +141,11 @@ if (isset($_POST['deck_delete'])) {
           Sorted based on favorite and created at
         </span>
       </p>
-      <span class="error">
-        <?php
-        echo $user_deck_update_error_message;
-        ?>
-      </span>
-      <span class="success">
-        <?php
-        echo $user_deck_update_success_message;
-        ?>
-      </span>
+
+      <span class="error"><?= $user_deck_update_error_message; ?></span>
+      <span class="success"><?= $user_deck_update_success_message; ?></span>
+      <span class="success"><?= $user_deck_delete_success_message; ?></span>
+
       <?php
       if (empty($current_decks)) {
         echo "<p>No decks available. Create a new Deck.</p>";
@@ -173,7 +175,7 @@ if (isset($_POST['deck_delete'])) {
               <form method="POST">
                 <input type="hidden" name="deck_id" value="<?= $deck['id'] ?>">
                 <button type="button" class="deck_edit" data-deck-data='<?= htmlspecialchars(json_encode($deck)) ?>'>Edit</button>
-                <button type="submit" name="deck_delete" onclick="return confirmDelete()">Delete</button>
+                <button name="deck_delete" onclick="return confirmDelete()">Delete</button>
               </form>
             </div>
           </div>
