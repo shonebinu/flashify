@@ -42,16 +42,17 @@ function addDeck($user_id, $deck_name, $deck_description, $deck_fav, $db)
   }
 }
 
-function updateDeck($deck_id, $deck_name, $deck_description, $deck_fav, $db)
+function updateDeck($user_id, $deck_id, $deck_name, $deck_description, $deck_fav, $db)
 {
   try {
     $db->execute(
-      "UPDATE decks SET name=:deck_name, description=:deck_description, is_favorite=:is_favorite WHERE id=:deck_id",
+      "UPDATE decks SET name=:deck_name, description=:deck_description, is_favorite=:is_favorite WHERE owner=:user_id AND id=:deck_id",
       [
         "deck_id" => $deck_id,
         "deck_name" => $deck_name,
         "deck_description" => $deck_description,
-        "is_favorite" => $deck_fav
+        "is_favorite" => $deck_fav,
+        "user_id" => $user_id
       ]
     );
     return true;

@@ -59,7 +59,7 @@ if (isset($_POST['deck-edit-modal'])) {
   $deck_description = $_POST['deck-description'];
   $deck_fav = $_POST['deck-is-fav'] ? 1 : 0;
 
-  $edit_deck_result = updateDeck($deck_id, $deck_name, $deck_description, $deck_fav, $db);
+  $edit_deck_result = updateDeck($_SESSION['user_id'], $deck_id, $deck_name, $deck_description, $deck_fav, $db);
 
   if ($edit_deck_result == false) {
     $user_deck_update_error_message = "Duplicate names found. Please try updating again with a unique deck name.";
