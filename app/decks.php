@@ -152,10 +152,12 @@ if (isset($_POST['deck-delete'])) {
         echo "<div class='cards-container'>";
         foreach ($current_decks as $deck) {
       ?>
-          <div class="card">
+          <div class="card" title="Click on the deck name to view cards of this same">
             <div class="title">
               <div>
-                <a href="cards.php?deck_id=<?= $deck['id'] ?>" class="deck-name" title="View Cards"><?= htmlspecialchars($deck['name']) ?></a>
+                <a href="cards.php?deck_id=<?= $deck['id'] ?>" class="deck-name" title="View Cards">
+                  <?= htmlspecialchars($deck['name']) ?>
+                </a>
                 <span class="info">
                   (
                   <?= htmlspecialchars($deck['card_count']) ?>

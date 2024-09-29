@@ -1,6 +1,7 @@
 <?php
 require_once '../includes/database.php';
 require_once '../includes/gravatar.php';
+require_once '../includes/app/decks.php';
 
 session_start();
 
@@ -10,6 +11,10 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $gravatar_url = get_gravatar($_SESSION['user_email']);
+
+$db = new Database();
+
+$current_decks = getDecks($_SESSION['user_id'], $search_term = "", $db);
 ?>
 
 <!DOCTYPE html>
@@ -33,6 +38,28 @@ $gravatar_url = get_gravatar($_SESSION['user_email']);
                 <h1><span class="greeting"></span> <?php echo $_SESSION['user_name'] ?></h1>
                 <p>We hope you have a productive session.</p>
             </div>
+        </section>
+        <section class="section">
+            <h2>Review Cards</h2>
+            <?php
+            if (empty($current_decks)) {
+                echo "<p>No Decks Available. Create a <a href='decks.php'>deck</a> to access card operations.</p>";
+                exit;
+            }
+            ?>
+            <p><span class="info">To search and navigate, visit <a href="decks.php">decks</a></span></p>
+            <p><span class="info">Sorted based on favorite and created at</span></p>
+            <form>
+                <select class="deck-select" name="deck_id">
+                    <option selected disabled>Select a deck</option>
+                    <?php
+                    foreach ($current_decks as $deck) {
+                        echo "<option value='{$deck['id']}'>{$deck['name']}</option>";
+                    }
+                    ?>
+                </select>
+                <button type="button" class="button">Review</button>
+            </form>
         </section>
     </main>
 
