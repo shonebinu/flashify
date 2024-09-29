@@ -1,5 +1,6 @@
 <?php
 require_once '../includes/database.php';
+require_once '../includes/app/cards.php';
 
 session_start();
 
@@ -8,7 +9,18 @@ if (!isset($_SESSION['user_id'])) {
   exit;
 }
 
+if (!isset($_GET['deck_id'])) {
+  header("Location: ./");
+  exit;
+}
+
 $db = new Database();
+
+$deck_id = $_GET['deck_id'];
+
+$cards = getCards($deck_id, $db);
+
+print_r($cards);
 
 ?>
 
@@ -24,8 +36,6 @@ $db = new Database();
 </head>
 
 <body>
-  <?php require_once 'components/nav.php' ?>
-  <?php require_once 'components/bubbles.php' ?>
   <main>
   </main>
 </body>

@@ -49,16 +49,16 @@ $current_decks = getDecks($_SESSION['user_id'], $search_term = "", $db);
             ?>
             <p><span class="info">To search and navigate, visit <a href="decks.php">decks</a></span></p>
             <p><span class="info">Sorted based on favorite and created at</span></p>
-            <form>
-                <select class="deck-select" name="deck_id">
-                    <option selected disabled>Select a deck</option>
+            <form method="GET" action="review.php">
+                <select class="deck-select" name="deck_id" required>
+                    <option selected disabled value="">Select a deck</option>
                     <?php
                     foreach ($current_decks as $deck) {
                         echo "<option value='{$deck['id']}'>{$deck['name']}</option>";
                     }
                     ?>
                 </select>
-                <button type="button" class="button">Review</button>
+                <button class="button">Review</button>
             </form>
         </section>
     </main>
