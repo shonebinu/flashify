@@ -53,14 +53,14 @@ if ($selected_deck) {
 }
 
 if ($selected_deck_name) {
-  $deck_cards = getCards($selected_deck, $db);
+  $deck_cards = getCards($selected_deck, $_SESSION['user_id'], $db);
 }
 
 if (isset($_POST['add-card'])) {
   $card_qn = $_POST['card-qn'];
   $card_ans = $_POST['card-ans'];
 
-  addCard($selected_deck, $card_qn, $card_ans, $db);
+  addCard($selected_deck, $card_qn, $card_ans, $_SESSION['user_id'], $db);
 
   $_SESSION["card_add_success_message"] = "Card added successfully";
   header("Location: " . $_SERVER['REQUEST_URI']);
@@ -71,7 +71,7 @@ if (isset($_POST['edit-card'])) {
   $card_qn = $_POST['card-qn'];
   $card_ans = $_POST['card-ans'];
 
-  updateCard($selected_deck, $card_id, $card_qn, $card_ans, $db);
+  updateCard($selected_deck, $card_id, $card_qn, $card_ans, $_SESSION['user_id'], $db);
 
   $_SESSION["card_update_success_message"] = "Card updated successfully";
   header("Location: " . $_SERVER['REQUEST_URI']);
@@ -80,7 +80,7 @@ if (isset($_POST['edit-card'])) {
 if (isset($_POST['delete-card'])) {
   $card_id = $_POST['card-id'];
 
-  deleteCard($selected_deck, $card_id, $db);
+  deleteCard($selected_deck, $card_id, $_SESSION['user_id'], $db);
 
   $_SESSION["card_delete_success_message"] = "Card deleted successfully";
   header("Location: " . $_SERVER['REQUEST_URI']);

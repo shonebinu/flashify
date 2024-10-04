@@ -18,9 +18,6 @@ $db = new Database();
 
 $deck_id = $_GET['deck_id'];
 
-$cards = getCards($deck_id, $db);
-
-print_r($cards);
 
 ?>
 
