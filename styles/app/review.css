@@ -1,1 +1,34 @@
 @import "main.css";
+
+body {
+  height: 100%;
+}
+
+section.section:has(.qn) {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin-bottom: 0;
+  padding: 10%;
+}
+
+button.show-ans.hide {
+  display: none;
+}
+
+div.ans {
+  display: none;
+}
+
+div.ans.show {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+div.actions {
+  display: flex;
+  gap: 1rem;
+}
