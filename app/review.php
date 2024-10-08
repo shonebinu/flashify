@@ -57,27 +57,35 @@ function calculateScore($current_score, $card_difficulty)
 <body>
   <main>
     <section class="section">
-      <?php
-      if (!$card) {
-        echo "Deck doesn't exist or have no cards in it.";
-        exit;
-      }
-      ?>
-      <h2 class="qn"><?= $card['question'] ?></h2>
-      <button class="show-ans button">Show Answer</button>
-      <div class="ans">
-        <p>
-          <?= $card['answer'] ?>
-        </p>
-        <form method="POST">
-          <div class="actions">
-            <input type="hidden" name="card_id" value="<?= $card['id'] ?>">
-            <input type="hidden" name="card_score" value="<?= $card['score'] ?>">
-            <button class="button" name="card_difficulty" value="easy">Easy</button>
-            <button class="button" name="card_difficulty" value="good">Good</button>
-            <button class="button" name="card_difficulty" value="hard">Hard</button>
-          </div>
-        </form>
+      <a class="back" href="./">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <title>close</title>
+          <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+        </svg>
+      </a>
+      <div>
+        <?php
+        if (!$card) {
+          echo "Deck doesn't exist or have no cards in it.";
+          exit;
+        }
+        ?>
+        <h2 class="qn"><?= $card['question'] ?></h2>
+        <button class="show-ans button">Show Answer</button>
+        <div class="ans">
+          <p>
+            <?= $card['answer'] ?>
+          </p>
+          <form method="POST">
+            <div class="actions">
+              <input type="hidden" name="card_id" value="<?= $card['id'] ?>">
+              <input type="hidden" name="card_score" value="<?= $card['score'] ?>">
+              <button class="button" name="card_difficulty" value="easy">Easy</button>
+              <button class="button" name="card_difficulty" value="good">Good</button>
+              <button class="button" name="card_difficulty" value="hard">Hard</button>
+            </div>
+          </form>
+        </div>
       </div>
     </section>
   </main>

@@ -4,14 +4,30 @@ body {
   height: 100%;
 }
 
-section.section:has(.qn) {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  margin-bottom: 0;
-  padding: 10%;
+main {
+  section.section {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0;
+
+    > .back {
+      align-self: end;
+      margin-top: 0;
+
+      > svg {
+        height: 2rem;
+      }
+    }
+
+    > div {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 80%;
+    }
+  }
 }
 
 button.show-ans.hide {
