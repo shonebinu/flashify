@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1deb5ubuntu1
+-- version 5.2.1deb1
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Aug 31, 2024 at 08:43 PM
--- Server version: 10.6.18-MariaDB-0ubuntu0.22.04.1
--- PHP Version: 8.1.2-1ubuntu2.18
+-- Generation Time: Oct 08, 2024 at 01:41 PM
+-- Server version: 10.11.6-MariaDB-0+deb12u1
+-- PHP Version: 8.2.20
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -88,9 +88,9 @@ CREATE TABLE `deck_links` (
 CREATE TABLE `statistics` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `date` date NOT NULL DEFAULT current_timestamp(),
-  `cards_reviewed` int(11) NOT NULL DEFAULT 0,
-  `cards_successful` int(11) NOT NULL DEFAULT 0
+  `card_id` int(11) NOT NULL,
+  `difficulty` char(4) NOT NULL CHECK (`difficulty` in ('easy','good','hard')),
+  `time` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -146,7 +146,8 @@ ALTER TABLE `deck_links`
 --
 ALTER TABLE `statistics`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`);
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `card_id` (`card_id`);
 
 --
 -- Indexes for table `users`
@@ -222,7 +223,8 @@ ALTER TABLE `deck_links`
 -- Constraints for table `statistics`
 --
 ALTER TABLE `statistics`
-  ADD CONSTRAINT `statistics_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `statistics_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `statistics_ibfk_2` FOREIGN KEY (`card_id`) REFERENCES `cards` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

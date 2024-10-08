@@ -26,7 +26,11 @@ if (isset($_POST['card_difficulty'])) {
   $card_difficulty = $_POST['card_difficulty'];
 
   $new_score = calculateScore($card_score, $card_difficulty);
+
   updateCardScore($card_id, $new_score, $deck_id, $_SESSION['user_id'], $db);
+  addCardStatistic($card_id, $_SESSION['user_id'], $card_difficulty, $db);
+
+  header("Location: " . $_SERVER['REQUEST_URI']);
 }
 
 function calculateScore($current_score, $card_difficulty)
@@ -66,7 +70,8 @@ function calculateScore($current_score, $card_difficulty)
       <div>
         <?php
         if (!$card) {
-          echo "Deck doesn't exist or have no cards in it.";
+          echo '<p>No cards available for review at this time. Check back later or add more cards to your deck.</p>
+                <a href="./">Back to Home</a>';
           exit;
         }
         ?>
