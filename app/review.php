@@ -75,7 +75,7 @@ function calculateScore($current_score, $card_difficulty)
           exit;
         }
         ?>
-        <h2 class="qn"><?= $card['question'] ?></h2>
+        <p class="qn"><?= $card['question'] ?></p>
         <button class="show-ans button">Show Answer</button>
         <div class="ans">
           <p>

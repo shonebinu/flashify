@@ -26,6 +26,14 @@ main {
       justify-content: center;
       align-items: center;
       height: 80%;
+
+      .qn {
+        font-size: 1.1rem;
+      }
+
+      .ans > p {
+        font-weight: 500;
+      }
     }
   }
 }
