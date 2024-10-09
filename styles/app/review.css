@@ -23,8 +23,8 @@ main {
     > div {
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
+      margin-top: 30vh;
       height: 80%;
 
       .qn {
@@ -54,5 +54,6 @@ div.ans.show {
 
 div.actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
 }
