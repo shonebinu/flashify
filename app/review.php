@@ -56,6 +56,7 @@ function calculateScore($current_score, $card_difficulty)
   <title>Flashify | Review</title>
   <link rel="icon" type="image/x-icon" href="/assets/flash-card.png">
   <link rel="stylesheet" href="/styles/app/review.css">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 </head>
 
 <body>
@@ -71,7 +72,11 @@ function calculateScore($current_score, $card_difficulty)
         <?php
         if (!$card) {
           echo '<p>No cards available for review at this time. Check back later or add more cards to your deck.</p>
+                <p style="margin-top: 0"><span class="info">If the deck is empty, please add some cards.</span></p>
                 <a href="./">Back to Home</a>';
+          echo '
+            <script> confetti(); setInterval(confetti, 5000); </script> 
+              ';
           exit;
         }
         ?>
