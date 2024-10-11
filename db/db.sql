@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 08, 2024 at 01:41 PM
+-- Generation Time: Oct 11, 2024 at 04:32 AM
 -- Server version: 10.11.6-MariaDB-0+deb12u1
--- PHP Version: 8.2.20
+-- PHP Version: 8.2.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -46,7 +46,6 @@ CREATE TABLE `decks` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `description` text DEFAULT NULL,
-  `is_public` tinyint(1) DEFAULT 0,
   `owner` int(11) DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `is_favorite` tinyint(1) DEFAULT 0
@@ -138,6 +137,7 @@ ALTER TABLE `deck_likes`
 ALTER TABLE `deck_links`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `link_code` (`link_code`),
+  ADD UNIQUE KEY `deck_id_2` (`deck_id`),
   ADD KEY `deck_id` (`deck_id`),
   ADD KEY `generated_by` (`generated_by`);
 

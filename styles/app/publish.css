@@ -1,0 +1,24 @@
+@import "main.css";
+
+table.published-decks {
+  margin-top: 2rem;
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+
+  th,
+  td {
+    border: 2px solid var(--bg);
+    padding: 0.5rem;
+  }
+
+  td {
+    font-size: 0.95rem;
+  }
+
+  button {
+    font-size: 0.9rem;
+    margin-top: 0;
+    display: inline;
+  }
+}
