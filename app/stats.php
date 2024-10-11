@@ -100,7 +100,8 @@ function createCalendar($year, $activity_by_date)
         </label>
       </form>
 
-      <?php echo createCalendar($selected_year, $activity_by_date); ?>
+      <h3>Activity Chart</h3>
+      <?= createCalendar($selected_year, $activity_by_date) ?>
       <div id="tooltip" class="tooltip"></div>
     </section>
   </main>
