@@ -15,10 +15,16 @@ $search_term = "";
 $link_code = "";
 
 $clone_success_message = "";
+$clone_error_message = "";
 
 if (isset($_SESSION['clone_success_message'])) {
   $clone_success_message = $_SESSION['clone_success_message'];
   unset($_SESSION['clone_success_message']);
+}
+
+if (isset($_SESSION['clone_error_message'])) {
+  $clone_error_message = $_SESSION['clone_error_message'];
+  unset($_SESSION['clone_error_message']);
 }
 
 if (isset($_GET['search'])) {
@@ -50,8 +56,12 @@ if ($link_code) {
 
 if (isset($_POST['clone_deck'])) {
   $deck_code = $_POST['deck_code'];
-  cloneDeck($link_code, $_SESSION['user_id'], $dialog_content['deck_name'] . " Cloned", $dialog_content['deck_description'], $db);
-  $_SESSION['clone_success_message'] = "Deck has been successfully cloned";
+  $clone_result = cloneDeck($link_code, $_SESSION['user_id'], $dialog_content['deck_name'] . " Cloned: " . $link_code, $dialog_content['deck_description'], $db);
+  if ($clone_result == false) {
+    $_SESSION['clone_error_message'] = "A deck with same name and signature exists in your workplace. Please change the existing deck's name or remove it before cloning again.";
+  } else {
+    $_SESSION['clone_success_message'] = "Deck has been successfully cloned";
+  }
   header("Location: " . $_SERVER['PHP_SELF']);
 }
 ?>
@@ -82,6 +92,7 @@ if (isset($_POST['clone_deck'])) {
         </button>
       </form>
       <p><span class="success"><?= $clone_success_message ?></span></p>
+      <p><span class="error"><?= $clone_error_message ?></span></p>
       <div class="container">
         <?php foreach ($published_decks as $deck) : ?>
           <div class="card">

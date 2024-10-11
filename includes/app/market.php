@@ -44,14 +44,18 @@ function getCardsFromDeckCode($link_code, $db)
 
 function cloneDeck($link_code, $user_id, $deck_name, $deck_description, $db)
 {
-  $db->execute(
-    "INSERT INTO decks(owner, name, description) VALUES(:owner, :name, :description)",
-    [
-      "owner" => $user_id,
-      "name" => $deck_name,
-      "description" => $deck_description,
-    ]
-  );
+  try {
+    $db->execute(
+      "INSERT INTO decks(owner, name, description) VALUES(:owner, :name, :description)",
+      [
+        "owner" => $user_id,
+        "name" => $deck_name,
+        "description" => $deck_description,
+      ]
+    );
+  } catch (Exception $e) {
+    return false;
+  }
 
   $new_deck_id = $db->lastInsertId();
   $cards = getCardsFromDeckCode($link_code, $db);
