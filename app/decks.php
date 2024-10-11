@@ -158,7 +158,7 @@ if (isset($_POST['deck-delete'])) {
                 <a href="cards.php?deck_id=<?= $deck['id'] ?>" class="deck-name" title="View Cards">
                   <?= htmlspecialchars($deck['name']) ?>
                 </a>
-                <span class="info">
+                <span class="info" title="Number of cards inside the deck">
                   (
                   <?= htmlspecialchars($deck['card_count']) ?>
                   )

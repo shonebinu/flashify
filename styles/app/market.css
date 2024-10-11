@@ -1,1 +1,78 @@
 @import "main.css";
+
+.container {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+
+  .card {
+    padding: 1rem;
+    border-radius: 6px;
+    background: var(--bg);
+    border-left: 3px solid var(--fg2);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 0.3rem;
+
+    cursor: pointer;
+    transition: transform 0.3s;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+
+    p.title {
+      margin: 0;
+      font-weight: 500;
+
+      span {
+        color: var(--fg2);
+        font-weight: normal;
+      }
+    }
+
+    p.description {
+      font-size: 0.95rem;
+      color: var(--fg2);
+      margin-top: 0.75rem;
+    }
+
+    p.owner {
+      font-size: 0.85rem;
+      color: var(--fg2);
+      padding: 0;
+      margin: 0;
+      text-align: right;
+    }
+  }
+}
+
+.search {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+
+  button:has(> svg) {
+    border: 0;
+    border-radius: 3px;
+    background: var(--fg2);
+    cursor: pointer;
+    fill: var(--bg2);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+      background: var(--bg);
+      fill: var(--fg2);
+      outline: 2px solid var(--bg3);
+    }
+
+    &:active {
+      transform: scale(1.05);
+    }
+  }
+}

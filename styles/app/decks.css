@@ -43,7 +43,7 @@ p:has(input[type="checkbox"]) {
     padding: 1rem;
     border-radius: 10px;
     background: var(--bg);
-    border-left: 5px solid var(--fg2);
+    border-left: 3px solid var(--fg2);
 
     display: grid;
     grid-template-rows: repeat(3, auto);
