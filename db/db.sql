@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 11, 2024 at 04:32 AM
+-- Generation Time: Oct 11, 2024 at 02:06 PM
 -- Server version: 10.11.6-MariaDB-0+deb12u1
 -- PHP Version: 8.2.24
 
@@ -122,7 +122,6 @@ ALTER TABLE `cards`
 --
 ALTER TABLE `decks`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `name` (`name`),
   ADD KEY `owner` (`owner`);
 
 --

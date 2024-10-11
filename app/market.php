@@ -14,6 +14,13 @@ $db = new Database();
 $search_term = "";
 $link_code = "";
 
+$clone_success_message = "";
+
+if (isset($_SESSION['clone_success_message'])) {
+  $clone_success_message = $_SESSION['clone_success_message'];
+  unset($_SESSION['clone_success_message']);
+}
+
 if (isset($_GET['search'])) {
   $search_term = $_GET['search'];
 }
@@ -43,6 +50,9 @@ if ($link_code) {
 
 if (isset($_POST['clone_deck'])) {
   $deck_code = $_POST['deck_code'];
+  cloneDeck($link_code, $_SESSION['user_id'], $dialog_content['deck_name'] . " Cloned", $dialog_content['deck_description'], $db);
+  $_SESSION['clone_success_message'] = "Deck has been successfully cloned";
+  header("Location: " . $_SERVER['PHP_SELF']);
 }
 ?>
 
@@ -71,6 +81,7 @@ if (isset($_POST['clone_deck'])) {
           </svg>
         </button>
       </form>
+      <p><span class="success"><?= $clone_success_message ?></span></p>
       <div class="container">
         <?php foreach ($published_decks as $deck) : ?>
           <div class="card">
@@ -124,7 +135,9 @@ if (isset($_POST['clone_deck'])) {
         <button id="close-dialog" class="button">Close</button>
         <form method="POST">
           <input type="hidden" name="deck_code" value="<?= $link_code ?>">
-          <button class="button" name="clone_deck">Clone</button>
+          <button class="button" name="clone_deck"
+            onclick="return confirm('This operation will clone this deck and its content to your personal workplace. Do you want to continue?');">
+            Clone</button>
         </form>
       </div>
     </dialog>

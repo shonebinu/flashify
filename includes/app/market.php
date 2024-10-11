@@ -41,3 +41,37 @@ function getCardsFromDeckCode($link_code, $db)
   $query = "SELECT * FROM cards WHERE deck_id = (SELECT deck_id FROM deck_links WHERE link_code = :link_code)";
   return $db->fetchAll($query, ["link_code" => $link_code]);
 }
+
+function cloneDeck($link_code, $user_id, $deck_name, $deck_description, $db)
+{
+  $db->execute(
+    "INSERT INTO decks(owner, name, description) VALUES(:owner, :name, :description)",
+    [
+      "owner" => $user_id,
+      "name" => $deck_name,
+      "description" => $deck_description,
+    ]
+  );
+
+  $new_deck_id = $db->lastInsertId();
+  $cards = getCardsFromDeckCode($link_code, $db);
+
+  if (!empty($cards)) {
+    $placeholders = [];
+    $values = [];
+
+    foreach ($cards as $index => $card) {
+      $placeholderIndex = $index * 3;
+      $placeholders[] = "(:deck_id{$placeholderIndex}, :card_qn{$placeholderIndex}, :card_ans{$placeholderIndex})";
+
+      $values["deck_id{$placeholderIndex}"] = $new_deck_id;
+      $values["card_qn{$placeholderIndex}"] = $card['question'];
+      $values["card_ans{$placeholderIndex}"] = $card['answer'];
+    }
+
+    $sql = "INSERT INTO cards (deck_id, question, answer) VALUES " . implode(', ', $placeholders);
+    $db->execute($sql, $values);
+  }
+
+  return $new_deck_id;
+}

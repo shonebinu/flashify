@@ -24,6 +24,11 @@ function getDecks($user_id, $search_term, $db)
   return $db->fetchAll($query, $params);
 }
 
+/*
+addDeck and updateDeck used to throw error when two deck have the same name, but now it doesn't since I threw that constraint away from the schema.
+I did it to lessen the complexity when cloning a public deck of the same name as of the users private deck.
+*/
+
 function addDeck($user_id, $deck_name, $deck_description, $deck_fav, $db)
 {
   try {
