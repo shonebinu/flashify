@@ -1,6 +1,5 @@
 <?php
 
-
 function getAllPublishedDecks($search_term, $db)
 {
   $conditions = [];
@@ -35,4 +34,10 @@ function getAllPublishedDecks($search_term, $db)
   $query .= " GROUP BY dl.link_code, d.name, d.description, u.name;";
 
   return $db->fetchAll($query, $params);
+}
+
+function getCardsFromDeckCode($link_code, $db)
+{
+  $query = "SELECT * FROM cards WHERE deck_id = (SELECT deck_id FROM deck_links WHERE link_code = :link_code)";
+  return $db->fetchAll($query, ["link_code" => $link_code]);
 }

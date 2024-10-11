@@ -3,7 +3,7 @@
 .container {
   display: grid;
   gap: 1rem;
-  grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
 
   .card {
     padding: 1rem;
@@ -16,7 +16,6 @@
     justify-content: space-between;
     gap: 0.3rem;
 
-    cursor: pointer;
     transition: transform 0.3s;
 
     &:hover {
@@ -44,7 +43,16 @@
       color: var(--fg2);
       padding: 0;
       margin: 0;
-      text-align: right;
+    }
+
+    form {
+      width: 100%;
+    }
+
+    button {
+      width: 100%;
+      font-size: 0.9rem;
+      margin-top: 0.75rem;
     }
   }
 }
@@ -74,5 +82,48 @@
     &:active {
       transform: scale(1.05);
     }
+  }
+}
+
+dialog {
+  text-align: center;
+
+  .count {
+    color: var(--fg2);
+  }
+
+  .published {
+    font-size: 0.9rem;
+  }
+
+  .actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+}
+
+table {
+  margin-top: 2rem;
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+
+  th,
+  td {
+    border: 2px solid var(--bg);
+    padding: 0.5rem;
+  }
+
+  td {
+    font-size: 0.95rem;
+  }
+
+  button {
+    font-size: 0.9rem;
+    margin-top: 0;
+    display: inline;
   }
 }

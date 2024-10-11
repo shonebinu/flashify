@@ -12,12 +12,38 @@ if (!isset($_SESSION['user_id'])) {
 $db = new Database();
 
 $search_term = "";
+$link_code = "";
 
 if (isset($_GET['search'])) {
   $search_term = $_GET['search'];
 }
 
+if (isset($_GET['code'])) {
+  $link_code = $_GET['code'];
+}
+
 $published_decks = getAllPublishedDecks($search_term, $db);
+
+$dialog_content = [];
+
+if ($link_code) {
+  $deck;
+
+  foreach ($published_decks as $d) {
+    if ($d['link_code'] == $link_code) $deck = $d;
+  }
+
+  if ($deck) {
+    $dialog_content['deck_name'] = $deck['deck_name'];
+    $dialog_content['deck_description'] = $deck['deck_description'];
+    $dialog_content['publisher'] = $deck['user_name'];
+    $dialog_content['cards'] = getCardsFromDeckCode($link_code, $db);
+  }
+}
+
+if (isset($_POST['clone_deck'])) {
+  $deck_code = $_POST['deck_code'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -57,14 +83,65 @@ $published_decks = getAllPublishedDecks($search_term, $db);
                 <?= $deck['deck_description'] ?>
               </p>
             </div>
-            <p class="owner">
-              <?= $deck['user_name'] ?>
+            <p class="owner" title="Publisher">
+              Pub: <?= $deck['user_name'] ?>
             </p>
+            <form>
+              <!-- To not lose the search context when clicking on View More button -->
+              <input type="hidden" name="search" value="<?= $search_term ?>">
+              <button class="button" name="code" value="<?= $deck['link_code'] ?>">View More</button>
+            </form>
           </div>
         <?php endforeach; ?>
       </div>
     </section>
   </main>
+
+  <?php if (!empty($dialog_content)): ?>
+
+    <dialog id="deck-dialog">
+      <h3><?= $dialog_content['deck_name'] ?><span class="count"> ( <?= count($dialog_content['cards']) ?> )</span></h3>
+      <p><?= $dialog_content['deck_description'] ?></p>
+      <p><span class="published">Published by: </span><u><?= $dialog_content['publisher'] ?></u></p>
+      <span class="info">You can clone this deck to your own worksplace by clicking on the 'Clone' button down at the bottom</span>
+      <table>
+        <tr>
+          <th>Question</th>
+          <th>Answer</th>
+        </tr>
+        <?php foreach ($dialog_content['cards'] as $card) : ?>
+          <tr>
+            <td>
+              <?= $card['question'] ?>
+            </td>
+            <td>
+              <?= $card['answer'] ?>
+            </td>
+          </tr>
+        <?php endforeach; ?>
+      </table>
+      <div class="actions">
+        <button id="close-dialog" class="button">Close</button>
+        <form method="POST">
+          <input type="hidden" name="deck_code" value="<?= $link_code ?>">
+          <button class="button" name="clone_deck">Clone</button>
+        </form>
+      </div>
+    </dialog>
+
+    <script>
+      const dialog = document.getElementById('deck-dialog');
+      const closeButton = document.getElementById('close-dialog');
+
+      dialog.showModal();
+
+      closeButton.addEventListener('click', () => {
+        dialog.close();
+      });
+    </script>
+
+  <?php endif; ?>
+
 </body>
 
 </html>
