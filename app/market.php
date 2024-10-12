@@ -50,6 +50,8 @@ if ($link_code) {
     $dialog_content['deck_name'] = $deck['deck_name'];
     $dialog_content['deck_description'] = $deck['deck_description'];
     $dialog_content['publisher'] = $deck['user_name'];
+    $dialog_content['like_count'] = $deck['like_count'];
+    $dialog_content['user_like_status'] = getUserLikedStatus($link_code, $_SESSION['user_id'], $db);
     $dialog_content['cards'] = getCardsFromDeckCode($link_code, $db);
   }
 }
@@ -63,6 +65,15 @@ if (isset($_POST['clone_deck'])) {
     $_SESSION['clone_success_message'] = "Deck has been successfully cloned";
   }
   header("Location: " . $_SERVER['PHP_SELF']);
+}
+
+if (isset($_POST['deck_like_toggle'])) {
+  if ($_POST['user_like_status']) {
+    dislikePublishedDeck($link_code, $_SESSION['user_id'], $db);
+  } else {
+    likePublishedDeck($link_code, $_SESSION['user_id'], $db);
+  }
+  header("Location: " . $_SERVER['REQUEST_URI']);
 }
 ?>
 
@@ -91,6 +102,9 @@ if (isset($_POST['clone_deck'])) {
           </svg>
         </button>
       </form>
+      <p>
+        <span class="info">You can clone any of this public deck to your own workspace by clicking on View More -> Clone</span>
+      </p>
       <p><span class="success"><?= $clone_success_message ?></span></p>
       <p><span class="error"><?= $clone_error_message ?></span></p>
       <div class="container">
@@ -98,8 +112,17 @@ if (isset($_POST['clone_deck'])) {
           <div class="card">
             <div>
               <p class="title">
-                <?= $deck['deck_name'] ?>
-                <span title="Number of cards inside the deck">( <?= $deck['card_count'] ?> )</span>
+                <span>
+                  <?= $deck['deck_name'] ?>
+                  <span class="count" title="Number of cards inside the deck">( <?= $deck['card_count'] ?> )</span>
+                </span>
+                <span class="likes" title="Number of likes">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <title>heart</title>
+                    <path d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z" />
+                  </svg>
+                  <?= $deck['like_count'] ?>
+                </span>
               </p>
               <p class="description">
                 <?= $deck['deck_description'] ?>
@@ -122,11 +145,33 @@ if (isset($_POST['clone_deck'])) {
   <?php if (!empty($dialog_content)): ?>
 
     <dialog id="deck-dialog">
-      <h3><?= $dialog_content['deck_name'] ?><span class="count"> ( <?= count($dialog_content['cards']) ?> )</span></h3>
+      <h3>
+        <span>
+          <?= $dialog_content['deck_name'] ?><span class="count"> ( <?= count($dialog_content['cards']) ?> )</span>
+        </span>
+        <form method="post">
+          <input type="hidden" name="user_like_status" value=<?= $dialog_content['user_like_status'] ?>>
+          <button name="deck_like_toggle">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="<?= $dialog_content['user_like_status'] ? "liked" : "" ?>">
+              <title>Like/Dislike</title>
+              <path d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z" />
+            </svg>
+          </button>
+        </form>
+      </h3>
       <p><?= $dialog_content['deck_description'] ?></p>
-      <p><span class="published">Published by: </span><u><?= $dialog_content['publisher'] ?></u></p>
-      <span class="info">You can clone this deck to your own worksplace by clicking on the 'Clone' button down at the bottom</span>
-      <table>
+      <table class="metadata">
+        <tr>
+          <td>Publisher:</td>
+          <td><?= $dialog_content['publisher'] ?></td>
+        </tr>
+        <tr>
+          <td>Likes:</td>
+          <td><?= $dialog_content['like_count'] ?></td>
+        <tr>
+      </table>
+      <span class="info">You can appreciate the work of this publisher by giving love!</span>
+      <table class="cards">
         <tr>
           <th>Question</th>
           <th>Answer</th>

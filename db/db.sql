@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 11, 2024 at 03:17 PM
+-- Generation Time: Oct 12, 2024 at 06:31 AM
 -- Server version: 10.11.6-MariaDB-0+deb12u1
 -- PHP Version: 8.2.24
 
@@ -129,7 +129,8 @@ ALTER TABLE `decks`
 -- Indexes for table `deck_likes`
 --
 ALTER TABLE `deck_likes`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `uniqueLike` (`deck_link_id`,`user_id`);
 
 --
 -- Indexes for table `deck_links`
