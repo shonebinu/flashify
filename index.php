@@ -73,21 +73,18 @@
       <div class="cards">
         <div class="card">
           <img src="assets/easy-to-use.png" alt="Easy to Use">
-          <h3>Intuitive and User-Friendly</h3>
-          <p>Flashify's simple interface makes creating, organizing, and reviewing flashcards effortless for students
-            and professionals.</p>
+          <h3>Intuitive Interface</h3>
+          <p>Create and review flashcards effortlessly with our user-friendly design.</p>
         </div>
         <div class="card">
           <img src="assets/repeat.png" alt="Spaced repetition">
-          <h3>Learn Smarter, Not Harder</h3>
-          <p>Flashify's spaced repetition focuses your study on the flashcards you need most, enhancing long-term
-            retention.</p>
+          <h3>Smart Learning</h3>
+          <p>Optimize retention with spaced repetition and track progress with detailed stats.</p>
         </div>
         <div class="card">
-          <img src="assets/progress-report.png" alt="Progress Tracking">
-          <h3>Track Your Progress</h3>
-          <p>Monitor your learning with detailed stats. See your improvements, identify focus areas, and celebrate
-            successes.</p>
+          <img src="assets/online-shopping.png" alt="Marketplace">
+          <h3>Collaborative Marketplace</h3>
+          <p>Share, explore, and collaborate on community-created flashcard decks.</p>
         </div>
       </div>
     </section>
@@ -98,51 +95,43 @@
         <div class="accordion-item">
           <button class="accordion-btn">What is Flashify?</button>
           <div class="accordion-content">
-            <p>Flashify is a powerful flashcard application designed to enhance learning through spaced repetition and
-              active recall techniques. It helps you create, organize, and review flashcards effectively, making the
-              learning process more efficient and enjoyable.</p>
+            <p>Flashify is a digital flashcard application designed to help users learn efficiently. It allows you to create, organize, and review flashcards to enhance your learning experience.</p>
           </div>
         </div>
         <div class="accordion-item">
-          <button class="accordion-btn">What is a flashcard?</button>
+          <button class="accordion-btn">What are flashcards?</button>
           <div class="accordion-content">
-            <p>A flashcard is a card containing a small amount of information, such as a word or phrase, on one side and
-              the answer on the other. Flashcards are used as a learning aid to improve memory through practiced
-              information retrieval.</p>
-          </div>
-        </div>
-        <div class="accordion-item">
-          <button class="accordion-btn">What is spaced repetition?</button>
-          <div class="accordion-content">
-            <p>Spaced repetition is a learning technique that involves reviewing information at increasing intervals,
-              improving long-term retention. By spacing out study sessions, learners can better retain information over
-              time compared to traditional study methods.</p>
+            <p>Flashcards are learning tools with a question or prompt on one side and the answer on the other. They're used to test knowledge and improve memory through repeated practice.</p>
           </div>
         </div>
         <div class="accordion-item">
           <button class="accordion-btn">What is active recall?</button>
           <div class="accordion-content">
-            <p>Active recall is a strategy where learners actively stimulate memory during the learning process,
-              enhancing memory retrieval. Instead of passively reading or listening, active recall involves actively
-              testing yourself on the material, which strengthens neural connections.</p>
+            <p>Active recall is a learning technique where you actively try to remember information rather than passively reviewing it. This method strengthens memory and improves long-term retention. Flashcards are an excellent tool for practicing active recall.</p>
           </div>
         </div>
         <div class="accordion-item">
-          <button class="accordion-btn">How are active recall, flashcards, and spaced repetition connected?</button>
+          <button class="accordion-btn">What is spaced repetition?</button>
           <div class="accordion-content">
-            <p>Active recall, flashcards, and spaced repetition are interconnected methods that enhance learning and
-              memory retention. Flashcards provide a practical tool for active recall by prompting you to remember the
-              answer before flipping the card. When combined with spaced repetition, the intervals between study
-              sessions are optimized to ensure information is reviewed at the ideal time for long-term retention.</p>
+            <p>Spaced repetition is a learning technique that involves reviewing information at increasing intervals over time. This method takes advantage of the psychological spacing effect to improve long-term retention of information. While Flashify doesn't automatically schedule reviews, users can apply this principle in their study habits.</p>
           </div>
         </div>
         <div class="accordion-item">
-          <button class="accordion-btn">How can Flashify help me?</button>
+          <button class="accordion-btn">How does Flashify improve learning?</button>
           <div class="accordion-content">
-            <p>Flashify can help you by providing an intuitive and user-friendly platform to create and review
-              flashcards. It incorporates spaced repetition algorithms to schedule reviews at optimal times, ensuring
-              you retain information more effectively. Flashify also offers progress tracking, so you can monitor your
-              learning journey and make adjustments as needed to maximize your study efficiency.</p>
+            <p>Flashify improves learning by providing a platform for creating and reviewing flashcards, which facilitates active recall. Users can also implement spaced repetition techniques in their study routines. These methods, combined with regular flashcard use, can significantly enhance memory retention and help users master new information more effectively.</p>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-btn">What features does Flashify offer?</button>
+          <div class="accordion-content">
+            <p>Flashify offers an intuitive interface for creating and reviewing flashcards, supporting both active recall and spaced repetition learning techniques. It also provides basic progress tracking and a marketplace for sharing and discovering flashcard decks. These features combine to create a comprehensive learning tool.</p>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-btn">What is the Flashify marketplace?</button>
+          <div class="accordion-content">
+            <p>The Flashify marketplace is a platform where users can share their flashcard decks and access decks created by others. It provides a collaborative space for users to expand their learning resources and benefit from the community's knowledge.</p>
           </div>
         </div>
       </div>
