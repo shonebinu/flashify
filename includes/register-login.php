@@ -7,7 +7,6 @@ function loginUser($email, $password, $db)
     session_start();
     $_SESSION['user_id'] = $user['id'];
     $_SESSION['user_name'] = $user['name'];
-    $_SESSION['user_email'] = $email;
     return true;
   }
   return false;

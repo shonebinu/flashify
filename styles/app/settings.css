@@ -1,1 +1,10 @@
 @import "main.css";
+
+input:focus {
+  outline: none;
+  border: 2px solid var(--green);
+}
+
+input:invalid:focus {
+  border: 2px solid var(--red);
+}
