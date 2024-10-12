@@ -131,7 +131,7 @@ dialog {
         }
 
         &.liked {
-          fill: var(--red);
+          fill: #ef4444;
         }
       }
     }
