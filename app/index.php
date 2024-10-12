@@ -63,7 +63,7 @@ $current_decks = getDecks($_SESSION['user_id'], $search_term = "", $db);
         </section>
     </main>
 
-    <script defer>
+    <script>
         const hour = new Date().getHours();
 
         let greeting;
