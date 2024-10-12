@@ -1,26 +1,29 @@
 RewriteEngine On
 
+# Define custom 404 page
+ErrorDocument 404 /404.php
+
 # Allow access to index.php in root and app directory
 RewriteRule ^$ index.php [L]
 RewriteRule ^app/$ app/index.php [L]
 
-# Block access to app/components directory
-RewriteRule ^app/components/ - [F,L]
+# Redirect app/components and unauthorized access to 404 page
+RewriteRule ^app/components/ /404.php [L,R=404]
 
 # Allow access to specific files and the app directory (except components)
-RewriteRule ^(index\.php|login\.php|register\.php)$ - [L]
+RewriteRule ^(index\.php|login\.php|register\.php|404\.php)$ - [L]
 RewriteRule ^app/(?!components/) - [L]
 
 # Redirect directory requests to index.php
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^(.+)$ $1/index.php [L]
 
-# Block access to all other PHP files
+# Redirect unauthorized PHP files to 404 page
 RewriteCond %{REQUEST_FILENAME} -f
-RewriteRule \.php$ - [F,L]
+RewriteRule \.php$ /404.php [L,R=404]
 
 # Optionally, allow access to other file types (e.g., css, js, images)
-RewriteRule \.(css|js|jpg|jpeg|png|gif)$ - [L]
+RewriteRule \.(css|js|jpg|jpeg|png|gif|svg|ttf|webp|webm)$ - [L]
 
-# Block access to all other files
-RewriteRule .* - [F,L]
+# Redirect all other unauthorized access to 404 page
+RewriteRule .* /404.php [L,R=404]

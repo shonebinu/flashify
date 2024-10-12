@@ -1,0 +1,48 @@
+@import "base.css";
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5rem;
+  flex-wrap: wrap;
+
+  height: 100vh;
+  background: var(--bg2);
+
+  h1.h404 {
+    margin: 0;
+    text-decoration: underline;
+    font-family: "Podkova";
+    font-size: 3rem;
+  }
+
+  h2 {
+    margin-bottom: 0;
+  }
+
+  div:first-child {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: "Podkova";
+
+    h1 {
+      margin-top: 0.5rem;
+    }
+
+    img {
+      width: 10rem;
+    }
+  }
+}
+
+a {
+  text-decoration: none;
+  color: var(--blue);
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
