@@ -84,7 +84,7 @@ function createCalendar($year, $activity_by_date)
   <?php require_once 'components/bubbles.php' ?>
   <main>
     <section class="section">
-      <h2>Statistics</h2>
+      <h2>Activity Chart</h2>
       <form>
         <label>
           <p>Select a year: </p>
@@ -100,7 +100,6 @@ function createCalendar($year, $activity_by_date)
         </label>
       </form>
 
-      <h3>Activity Chart</h3>
       <?= createCalendar($selected_year, $activity_by_date) ?>
       <div id="tooltip" class="tooltip"></div>
     </section>
