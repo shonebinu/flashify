@@ -102,18 +102,6 @@ main {
   }
 }
 
-@keyframes rise {
-  0% {
-    bottom: -100px;
-    transform: translateX(0);
-  }
-
-  100% {
-    bottom: 100%;
-    transform: translateX(-200px);
-  }
-}
-
 main .features {
   padding: 3vh;
   background: var(--bg2);
