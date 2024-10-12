@@ -4,7 +4,9 @@ function loginUser($email, $password, $db)
   $user = $db->fetch("SELECT id, name, password FROM users WHERE email = :email", ['email' => $email]);
 
   if ($user && password_verify($password, $user['password'])) {
-    session_start();
+    if (session_status() === PHP_SESSION_NONE) {
+      session_start();
+    }
     $_SESSION['user_id'] = $user['id'];
     $_SESSION['user_name'] = $user['name'];
     $_SESSION['user_email'] = $email;
@@ -28,7 +30,9 @@ function registerUser($name, $email, $password, $db)
     "password" => $hashedPassword
   ]);
 
-  session_start();
+  if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+  }
   $_SESSION['user_id'] = $db->lastInsertId();
   $_SESSION['user_name'] = $name;
   $_SESSION['user_email'] = $email;
