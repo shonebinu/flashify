@@ -26,6 +26,22 @@ $current_decks = getDecks($_SESSION['user_id'], $search_term = "", $db);
     <title>Flashify | Home</title>
     <link rel="icon" type="image/x-icon" href="/assets/flash-card.png">
     <link rel="stylesheet" href="/styles/app/home.css">
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const hour = new Date().getHours();
+
+            let greeting;
+            if (hour < 12) {
+                greeting = "Good Morning,";
+            } else if (hour < 18) {
+                greeting = "Good Afternoon,";
+            } else {
+                greeting = "Good Evening,";
+            }
+
+            document.querySelector('.greeting').textContent = greeting;
+        });
+    </script>
 </head>
 
 <body>
@@ -62,21 +78,6 @@ $current_decks = getDecks($_SESSION['user_id'], $search_term = "", $db);
             </form>
         </section>
     </main>
-
-    <script>
-        const hour = new Date().getHours();
-
-        let greeting;
-        if (hour < 12) {
-            greeting = "Good Morning,";
-        } else if (hour < 18) {
-            greeting = "Good Afternoon,";
-        } else {
-            greeting = "Good Evening,";
-        }
-
-        document.querySelector('.greeting').textContent = greeting;
-    </script>
 </body>
 
 </html>

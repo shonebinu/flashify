@@ -7,28 +7,6 @@
   <title>Flashify</title>
   <link rel="icon" type="image/x-icon" href="/assets/flash-card.png">
   <link rel="stylesheet" href="/styles/landing-page.css">
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-
-      // Accordion
-      const accordionItems = document.querySelectorAll(".accordion-item");
-
-      accordionItems.forEach(item => {
-        const accordionBtn = item.querySelector(".accordion-btn");
-
-        accordionBtn.addEventListener("click", function() {
-          item.classList.toggle("active");
-
-          const accordionContent = item.querySelector(".accordion-content");
-          if (item.classList.contains("active")) {
-            accordionContent.style.display = "block";
-          } else {
-            accordionContent.style.display = "none";
-          }
-        });
-      });
-    });
-  </script>
 </head>
 
 <body>
@@ -182,6 +160,24 @@
       <p class="light"><a href="register.php">Register</a></p>
     </div>
   </footer>
+  <script>
+    const accordionItems = document.querySelectorAll(".accordion-item");
+
+    accordionItems.forEach(item => {
+      const accordionBtn = item.querySelector(".accordion-btn");
+
+      accordionBtn.addEventListener("click", function() {
+        item.classList.toggle("active");
+
+        const accordionContent = item.querySelector(".accordion-content");
+        if (item.classList.contains("active")) {
+          accordionContent.style.display = "block";
+        } else {
+          accordionContent.style.display = "none";
+        }
+      });
+    });
+  </script>
 </body>
 
 </html>
