@@ -9,7 +9,7 @@ $stringAfterApp = $matches[1];
 <aside>
   <nav class="app-nav">
     <h1>
-      <div>
+      <div onclick="window.location.href = '../../'">
         Flashify
         <img src="/assets/flash-card.png" alt="Flashify logo">
       </div>
