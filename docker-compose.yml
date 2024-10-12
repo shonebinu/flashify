@@ -21,7 +21,6 @@ services:
       - MYSQL_ALLOW_EMPTY_PASSWORD=1
     volumes:
       - "./db:/docker-entrypoint-initdb.d"
-      - db_data:/var/lib/mysql
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -30,6 +29,3 @@ services:
     environment:
       - PMA_HOST=db
       - PMA_PORT=3306
-
-volumes:
-  db_data:
