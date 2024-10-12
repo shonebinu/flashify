@@ -3,7 +3,7 @@ $currentURL = $_SERVER['REQUEST_URI'];
 
 preg_match('/\/app\/([^\/\?\.\&]+)/', $currentURL, $matches);
 
-$stringAfterApp = $matches[1];
+$stringAfterApp = $matches[1] ?? null;
 ?>
 
 <aside>

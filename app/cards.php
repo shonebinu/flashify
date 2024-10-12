@@ -14,7 +14,7 @@ $db = new Database();
 
 $current_decks = getDecks($_SESSION['user_id'], $search_term = "", $db);
 $selected_deck = $_GET['deck_id'] ?? null;
-$selected_deck_name;
+$selected_deck_name = null;
 $selected_deck_description;
 $selected_deck_is_fav;
 $selected_deck_cards_count;

@@ -14,6 +14,7 @@ $user_deck_add_success_message = "";
 $user_deck_add_error_message = "";
 $user_deck_update_success_message = "";
 $user_deck_update_error_message = "";
+$user_deck_delete_success_message = "";
 $user_deck_delete_error_message = "";
 $search_term = "";
 
