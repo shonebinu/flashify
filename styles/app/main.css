@@ -241,6 +241,7 @@ dialog {
         background: var(--bg2);
         padding: 1rem;
         padding-top: 0;
+        box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
       }
 
       .extended-nav.active {
@@ -256,6 +257,7 @@ dialog {
       padding: 0.5rem;
 
       section.section {
+        padding: 1rem 1.5rem;
         margin-bottom: 0.5rem;
 
         input[type="text"],
@@ -264,6 +266,13 @@ dialog {
         select,
         textarea {
           width: 100%;
+        }
+
+        input[type="text"],
+        input[type="search"],
+        input[type="password"] {
+          padding-top: 0.4rem;
+          padding-bottom: 0.4rem;
         }
       }
     }
