@@ -1,0 +1,26 @@
+RewriteEngine On
+
+# Allow access to index.php in root and app directory
+RewriteRule ^$ index.php [L]
+RewriteRule ^app/$ app/index.php [L]
+
+# Block access to app/components directory
+RewriteRule ^app/components/ - [F,L]
+
+# Allow access to specific files and the app directory (except components)
+RewriteRule ^(index\.php|login\.php|register\.php)$ - [L]
+RewriteRule ^app/(?!components/) - [L]
+
+# Redirect directory requests to index.php
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^(.+)$ $1/index.php [L]
+
+# Block access to all other PHP files
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule \.php$ - [F,L]
+
+# Optionally, allow access to other file types (e.g., css, js, images)
+RewriteRule \.(css|js|jpg|jpeg|png|gif)$ - [L]
+
+# Block access to all other files
+RewriteRule .* - [F,L]
