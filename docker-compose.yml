@@ -1,0 +1,35 @@
+services:
+  www:
+    image: php:8.2-apache
+    volumes:
+      - "./:/var/www/html/"
+    environment:
+      - DB_SERVER=db
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASS}
+    ports:
+      - 80:80
+    command: bash -c "a2enmod rewrite && docker-php-ext-install mysqli pdo pdo_mysql && apache2-foreground"
+
+  db:
+    image: mariadb:10.11
+    environment:
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASS}
+      - MYSQL_ALLOW_EMPTY_PASSWORD=1
+    volumes:
+      - "./db:/docker-entrypoint-initdb.d"
+      - db_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - 8080:80
+    environment:
+      - PMA_HOST=db
+      - PMA_PORT=3306
+
+volumes:
+  db_data:
