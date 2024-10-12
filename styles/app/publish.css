@@ -22,3 +22,9 @@ table.published-decks {
     display: inline;
   }
 }
+
+@media only screen and (width <= 700px) {
+  div:has(> table.published-decks) {
+    overflow-x: auto;
+  }
+}

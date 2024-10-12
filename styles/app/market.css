@@ -186,3 +186,9 @@ table {
     display: inline;
   }
 }
+
+@media only screen and (width <= 700px) {
+  dialog[open] {
+    width: 100%;
+  }
+}

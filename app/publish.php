@@ -118,34 +118,36 @@ function getUnpublishedDecks($user_decks, $user_published_decks)
       <h2>Published Decks</h2>
       <span class="info">All your published decks will be readable by others through the <a href="./market.php">market</a></span>
       <p><span class="success"><?= $unpublish_deck_success_message ?></span></p>
-      <table class="published-decks">
-        <tr>
-          <th>Name</th>
-          <th>Description</th>
-          <th>URL</th>
-          <th>Actions</th>
-        </tr>
-        <?php
-        if (empty($user_published_decks)) echo "<td colspan=4 align=center>No published decks</td>"
-        ?>
-        <?php foreach ($user_published_decks as $deck) : ?>
+      <div>
+        <table class="published-decks">
           <tr>
-            <td><?= $deck['name']; ?></td>
-            <td><?= $deck['description']; ?></td>
-            <td>
-              <a target="_blank" href="./market.php?code=<?= $deck['link_code']; ?>">
-                <?= $_SERVER['SERVER_NAME'] ?>/app/market.php?code=<?= $deck['link_code']; ?>
-              </a>
-            </td>
-            <td>
-              <form class="action" method="POST">
-                <input type="hidden" name="deck_link_id" value="<?= $deck['id']; ?>">
-                <button class="button" name="unpublish_deck">Unpublish</button>
-              </form>
-            </td>
+            <th>Name</th>
+            <th>Description</th>
+            <th>URL</th>
+            <th>Actions</th>
           </tr>
-        <?php endforeach; ?>
-      </table>
+          <?php
+          if (empty($user_published_decks)) echo "<td colspan=4 align=center>No published decks</td>"
+          ?>
+          <?php foreach ($user_published_decks as $deck) : ?>
+            <tr>
+              <td><?= $deck['name']; ?></td>
+              <td><?= $deck['description']; ?></td>
+              <td>
+                <a target="_blank" href="./market.php?code=<?= $deck['link_code']; ?>">
+                  <?= $_SERVER['SERVER_NAME'] ?>/app/market.php?code=<?= $deck['link_code']; ?>
+                </a>
+              </td>
+              <td>
+                <form class="action" method="POST">
+                  <input type="hidden" name="deck_link_id" value="<?= $deck['id']; ?>">
+                  <button class="button" name="unpublish_deck">Unpublish</button>
+                </form>
+              </td>
+            </tr>
+          <?php endforeach; ?>
+        </table>
+      </div>
     </section>
   </main>
 </body>

@@ -116,3 +116,9 @@ dialog form {
     color: var(--bg3);
   }
 }
+
+@media only screen and (width <= 700px) {
+  dialog[open] {
+    width: 100%;
+  }
+}

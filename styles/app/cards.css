@@ -69,3 +69,13 @@ table.cards {
     }
   }
 }
+
+@media only screen and (width <= 700px) {
+  dialog[open] {
+    width: 100%;
+  }
+
+  .table-container {
+    overflow-x: auto;
+  }
+}

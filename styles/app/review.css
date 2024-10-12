@@ -55,5 +55,16 @@ div.ans.show {
 div.actions {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 1rem;
+}
+
+@media only screen and (width <= 700px) {
+  body {
+    height: 100vh;
+
+    main section.section {
+      margin-bottom: 0;
+    }
+  }
 }
