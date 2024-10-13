@@ -48,3 +48,82 @@ The easiest way to run this project locally is with Docker and Docker Compose.
 - phpMyAdmin:
   - Access via http://localhost:8080
   - Use the credentials specified in the .env file
+
+### Run Locally Without Docker
+
+These steps are for Debian-based systems, but the overall procedure is similar for any Linux distribution.
+
+#### Prerequisites
+
+1. **Setup Apache, PHP, and MySQL (or MariaDB)**
+   - Ensure you have Apache, PHP, and MySQL installed on your system.
+
+#### Installation Steps
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/shonebinu/flashify.git /var/www/flashify
+   ```
+
+2. **Configure MySQL connection**
+   - Copy `SECRETS.php.example` to `SECRETS.php`
+   - Open `SECRETS.php` and insert your MySQL connection details (host, user, password, database)
+
+3. **Import database schema**
+   - Import the `db.sql` file via phpMyAdmin or using the MySQL command line:
+     ```bash
+     mysql -u your_username -p your_database_name < /path/to/db.sql
+     ```
+
+4. **Setup Apache Virtual Host**
+
+   a. Create a new configuration file:
+   ```bash
+   sudo vim /etc/apache2/sites-available/flashify.conf
+   ```
+
+   b. Add the following content (adjust as needed):
+   ```apache
+   <VirtualHost *:80>
+       ServerAdmin webmaster@flashify.local
+       ServerName flashify.local
+       DocumentRoot /var/www/flashify
+
+       <Directory /var/www/flashify>
+           AllowOverride All
+           Require all granted
+       </Directory>
+
+       ErrorLog ${APACHE_LOG_DIR}/flashify_error.log
+       CustomLog ${APACHE_LOG_DIR}/flashify_access.log combined
+   </VirtualHost>
+   ```
+
+   c. Enable mod_rewrite:
+   ```bash
+   sudo a2enmod rewrite
+   ```
+
+   d. Enable the new virtual host:
+   ```bash
+   sudo a2ensite flashify.conf
+   ```
+
+   e. Reload Apache:
+   ```bash
+   sudo service apache2 reload
+   ```
+
+5. **Configure local domain (optional)**
+   - Add an entry to your `/etc/hosts` file:
+     ```bash
+     sudo vim /etc/hosts
+     ```
+   - Add the following line:
+     ```
+     127.0.0.1 flashify.local
+     ```
+
+#### Accessing the Application
+
+Open a web browser and navigate to `http://flashify.local` or `http://localhost`, depending on your configuration.
