@@ -1,6 +1,8 @@
 <?php
 require_once '../includes/database.php';
 require_once '../includes/app/settings.php';
+require_once '../includes/app/decks.php';
+require_once '../includes/app/cards.php';
 
 session_start();
 
@@ -25,6 +27,8 @@ if (isset($_SESSION['change_password_success_message'])) {
   unset($_SESSION['change_password_success_message']);
 }
 
+$user_decks = getDecks($_SESSION['user_id'], "", $db);
+
 if (isset($_POST['update_name'])) {
   $new_user_name = $_POST['new_user_name'];
   updateUserName($_SESSION['user_id'], $new_user_name, $db);
@@ -45,6 +49,88 @@ if (isset($_POST['update_password'])) {
     $_SESSION['change_password_success_message'] = "Password updated successfully";
     header("Location: " . $_SERVER['PHP_SELF']);
   }
+}
+
+if (isset($_POST['import_csv'])) {
+  $deck_name = $_POST['deck_name'];
+  $file = $_FILES['csv_file'];
+
+  $file_info = finfo_open(FILEINFO_MIME_TYPE);
+  $file_mime = finfo_file($file_info, $file['tmp_name']);
+  finfo_close($file_info);
+
+  if ($file_mime != 'text/csv' && $file_mime != 'application/vnd.ms-excel') {
+    $import_error = "Please upload a valid CSV file.";
+  } else {
+    try {
+      $db->beginTransaction();
+
+      $deck_id = array_filter($user_decks, fn($deck) => $deck['name'] == $deck_name)[0]['id'] ?? null;
+
+      if ($deck_id == null) {
+        addDeck($_SESSION['user_id'], $deck_name, "", 0, $db);
+        $deck_id = $db->lastInsertId();
+      }
+
+      $imported_count = 0;
+      $skipped_count = 0;
+
+      if (($handle = fopen($file['tmp_name'], "r")) !== FALSE) {
+        $header = fgetcsv($handle);
+
+        while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+          if (count($data) == 2) {
+            $question = trim($data[0]);
+            $answer = trim($data[1]);
+
+            if (!empty($question) && !empty($answer)) {
+              $question = htmlspecialchars($question, ENT_QUOTES, 'UTF-8');
+              $answer = htmlspecialchars($answer, ENT_QUOTES, 'UTF-8');
+
+              addCard($deck_id, $question, $answer, $_SESSION['user_id'], $db);
+              $imported_count++;
+            } else {
+              $skipped_count++;
+            }
+          } else {
+            $skipped_count++;
+          }
+        }
+        fclose($handle);
+
+        $db->commit();
+        $import_success = "CSV imported successfully! Imported $imported_count cards. Skipped $skipped_count rows.";
+      } else {
+        throw new Exception("Error reading CSV file.");
+      }
+    } catch (Exception $e) {
+      $db->rollBack();
+      $import_error = "Error during import: " . $e->getMessage();
+    }
+  }
+}
+
+
+if (isset($_POST['export_deck'])) {
+  $deck_id = $_POST['deck_id'];
+
+  $deck_name = array_filter($user_decks, fn($deck) => $deck['id'] == $deck_id)[0]['name'] ?? null;
+
+  $cards = getCards($deck_id, $_SESSION['user_id'], $db);
+
+  header('Content-Type: text/csv');
+  header('Content-Disposition: attachment; filename="deck_' . $deck_name . '.csv"');
+
+  $output = fopen('php://output', 'w');
+
+  fputcsv($output, array('question', 'answer'));
+
+  foreach ($cards as $card) {
+    fputcsv($output, array($card['question'], $card['answer']));
+  }
+
+  fclose($output);
+  exit;
 }
 ?>
 
@@ -93,6 +179,38 @@ if (isset($_POST['update_password'])) {
           <input type="password" name="confirm_password" placeholder="Enter New Password" required>
         </label>
         <button class="button" name="update_password">Update Password</button>
+      </form>
+    </section>
+    <section class="section">
+      <h2>Import CSV</h2>
+      <span class="info">This operation populates a new or current deck with the data taken from the CSV file.</span>
+      <p><span class="info"><b>The CSV file should have two fields: 'question' and 'answer'</b></span></p>
+      <form method="POST" enctype="multipart/form-data">
+        <label>
+          <p>Deck Name (new or existing):</p>
+          <input type="text" name="deck_name" required>
+        </label>
+        <label>
+          <p>Select CSV File:</p>
+          <input type="file" name="csv_file" accept=".csv" required>
+        </label>
+        <button class="button" name="import_csv">Import CSV</button>
+      </form>
+    </section>
+    <section class="section">
+      <h2>Export Deck</h2>
+      <span class="info">This operation exports the selected deck as a CSV file</span>
+      <form method="POST">
+        <label>
+          <p>Select Deck to Export:</p>
+          <select name="deck_id" required>
+            <option value="" disabled selected>Select a deck</option>
+            <?php foreach ($user_decks as $deck): ?>
+              <option value="<?= $deck['id'] ?>"><?= htmlspecialchars($deck['name']) ?></option>
+            <?php endforeach; ?>
+          </select>
+        </label>
+        <button class="button" name="export_deck">Export as CSV</button>
       </form>
     </section>
   </main>
