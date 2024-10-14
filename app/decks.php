@@ -42,7 +42,7 @@ $current_decks = getDecks($_SESSION['user_id'], $search_term, $db);
 if (isset($_POST['add_deck'])) {
   $deck_name = $_POST['deck-name'];
   $deck_description = $_POST['deck-description'];
-  $deck_fav = $_POST['deck-is-fav'] ? 1 : 0;
+  $deck_fav = $_POST['deck-is-fav'] ?? null ? 1 : 0;
 
   $add_deck_result = addDeck($_SESSION['user_id'], $deck_name, $deck_description, $deck_fav, $db);
 
