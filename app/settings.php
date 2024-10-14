@@ -51,65 +51,48 @@ if (isset($_POST['update_password'])) {
   }
 }
 
+
 if (isset($_POST['import_csv'])) {
   $deck_name = $_POST['deck_name'];
   $file = $_FILES['csv_file'];
 
-  $file_info = finfo_open(FILEINFO_MIME_TYPE);
-  $file_mime = finfo_file($file_info, $file['tmp_name']);
-  finfo_close($file_info);
-
-  if ($file_mime != 'text/csv' && $file_mime != 'application/vnd.ms-excel') {
-    $import_error = "Please upload a valid CSV file.";
+  if ($file['type'] != 'text/csv') {
+    $import_error = "Please upload a CSV file.";
   } else {
-    try {
-      $db->beginTransaction();
+    $db->beginTransaction();
 
-      $deck_id = array_filter($user_decks, fn($deck) => $deck['name'] == $deck_name)[0]['id'] ?? null;
+    $deck_id = array_filter($user_decks, fn($deck) => $deck['name'] == $deck_name)[0]['id'] ?? null;
 
-      if ($deck_id == null) {
-        addDeck($_SESSION['user_id'], $deck_name, "", 0, $db);
-        $deck_id = $db->lastInsertId();
-      }
+    if ($deck_id == null) {
+      addDeck($_SESSION['user_id'], $deck_name, "", 0, $db);
+      $deck_id = $db->lastInsertId();
+    }
 
-      $imported_count = 0;
-      $skipped_count = 0;
+    $imported_count = 0;
 
-      if (($handle = fopen($file['tmp_name'], "r")) !== FALSE) {
-        $header = fgetcsv($handle);
-
-        while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-          if (count($data) == 2) {
-            $question = trim($data[0]);
-            $answer = trim($data[1]);
-
-            if (!empty($question) && !empty($answer)) {
-              $question = htmlspecialchars($question, ENT_QUOTES, 'UTF-8');
-              $answer = htmlspecialchars($answer, ENT_QUOTES, 'UTF-8');
-
-              addCard($deck_id, $question, $answer, $_SESSION['user_id'], $db);
-              $imported_count++;
-            } else {
-              $skipped_count++;
-            }
-          } else {
-            $skipped_count++;
+    if (($handle = fopen($file['tmp_name'], "r")) !== FALSE) {
+      fgetcsv($handle);
+      while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+        if (count($data) == 2) {
+          $question = trim($data[0]);
+          $answer = trim($data[1]);
+          if (!empty($question) && !empty($answer)) {
+            $question = htmlspecialchars($question, ENT_QUOTES, 'UTF-8');
+            $answer = htmlspecialchars($answer, ENT_QUOTES, 'UTF-8');
+            addCard($deck_id, $question, $answer, $_SESSION['user_id'], $db);
+            $imported_count++;
           }
         }
-        fclose($handle);
-
-        $db->commit();
-        $import_success = "CSV imported successfully! Imported $imported_count cards. Skipped $skipped_count rows.";
-      } else {
-        throw new Exception("Error reading CSV file.");
       }
-    } catch (Exception $e) {
+      fclose($handle);
+      $import_success = "CSV imported successfully! Imported $imported_count cards. ";
+      $db->commit();
+    } else {
+      $import_error = "Error reading CSV file.";
       $db->rollBack();
-      $import_error = "Error during import: " . $e->getMessage();
     }
   }
 }
-
 
 if (isset($_POST['export_deck'])) {
   $deck_id = $_POST['deck_id'];
@@ -183,7 +166,7 @@ if (isset($_POST['export_deck'])) {
     </section>
     <section class="section">
       <h2>Import CSV</h2>
-      <span class="info">This operation populates a new or current deck with the data taken from the CSV file.</span>
+      <span class="info">This operation populates a new deck with the data taken from the CSV file. To extend an existing deck with this data, type in the current deck's name</span>
       <p><span class="info"><b>The CSV file should have two fields: 'question' and 'answer'</b></span></p>
       <form method="POST" enctype="multipart/form-data">
         <label>
