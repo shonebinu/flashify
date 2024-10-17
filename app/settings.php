@@ -16,6 +16,8 @@ $db = new Database();
 $change_name_success_message = "";
 $change_password_error_message = "";
 $change_password_success_message = "";
+$deck_import_success_message = "";
+$deck_import_error_message = "";
 
 if (isset($_SESSION['change_name_success_message'])) {
   $change_name_success_message = $_SESSION['change_name_success_message'];
@@ -25,6 +27,11 @@ if (isset($_SESSION['change_name_success_message'])) {
 if (isset($_SESSION['change_password_success_message'])) {
   $change_password_success_message = $_SESSION['change_password_success_message'];
   unset($_SESSION['change_password_success_message']);
+}
+
+if (isset($_SESSION['deck_import_success_message'])) {
+  $deck_import_success_message = $_SESSION['deck_import_success_message'];
+  unset($_SESSION['deck_import_success_message']);
 }
 
 $user_decks = getDecks($_SESSION['user_id'], "", $db);
@@ -85,8 +92,9 @@ if (isset($_POST['import_csv'])) {
         }
       }
       fclose($handle);
-      $import_success = "CSV imported successfully! Imported $imported_count cards. ";
+      $_SESSION['deck_import_success_message'] = "CSV imported successfully! Imported $imported_count cards. ";
       $db->commit();
+      header("Location: " . $_SERVER['PHP_SELF']);
     } else {
       $import_error = "Error reading CSV file.";
       $db->rollBack();
@@ -166,6 +174,8 @@ if (isset($_POST['export_deck'])) {
     </section>
     <section class="section">
       <h2>Import CSV</h2>
+      <p><span class="error"><?= $deck_import_error_message ?></span></p>
+      <p><span class="success"><?= $deck_import_success_message ?></span></p>
       <span class="info">This operation populates a new deck with the data taken from the CSV file. To extend an existing deck with this data, type in the current deck's name</span>
       <p><span class="info"><b>The CSV file should have two fields: 'question' and 'answer'</b></span></p>
       <form method="POST" enctype="multipart/form-data">
