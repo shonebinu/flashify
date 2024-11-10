@@ -11,7 +11,7 @@
 
 <body>
   <div>
-    <img src="./assets/flash-card.png" alt="Flashify logo">
+    <img src="/assets/flash-card.png" alt="Flashify logo">
     <h1>Flashify</h1>
   </div>
   <div>
