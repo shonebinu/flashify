@@ -20,12 +20,9 @@ services:
       - MYSQL_PASSWORD=${DB_PASS}
       - MYSQL_ALLOW_EMPTY_PASSWORD=1
     volumes:
-      - "./db:/docker-entrypoint-initdb.d"
+      - mariadb_data:/var/lib/mysql  # Persistent storage for MariaDB
 
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    ports:
-      - 8080:80
-    environment:
-      - PMA_HOST=db
-      - PMA_PORT=3306
+volumes:
+  mariadb_data:
+
+

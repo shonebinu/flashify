@@ -47,10 +47,6 @@ The easiest way to run this project locally is with Docker and Docker Compose.
   - If running locally: http://localhost
   - If running on a server: Use the server's IP address
 
-- phpMyAdmin:
-  - Access via http://localhost:8080
-  - Use the credentials specified in the .env file
-
 ### Run Locally Without Docker
 
 These steps are for Debian-based systems, but the overall procedure is similar for any Linux distribution.
