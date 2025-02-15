@@ -37,8 +37,9 @@ The easiest way to run this project locally is with Docker and Docker Compose.
 2. Run the following command:
 
    ```bash
-   sudo docker-compose up
+   sudo docker-compose -f docker-compose.prod.yml up
    ```
+   Note: This configuration doesn't include PHPMyAdmin, to have access to it. Run `docker-compose` with `docker-compose.dev.yml`. 
 
 #### Access the Application
 
